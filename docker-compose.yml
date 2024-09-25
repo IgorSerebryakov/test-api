@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+    nginx:
+        image: nginx:latest
+        volumes:
+            - ./:/var/www/
+            - ./docker/nginx/conf.d/:/etc/nginx/conf.d
+        ports:
+            - "8876:80"
+        depends_on:
+            - app
+        container_name: app_nginx
+
+    app:
+        build:
+            context: .
+            dockerfile: docker/app/Dockerfile
+        image: php:8.2-fpm
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - db
+        container_name: app
+
+    db:
+        image: postgres:14
+        restart: always
+        volumes:
+            - ./tmp/db:/var/lib/postgresql/data
+        environment:
+            POSTGRES_DB: test_api
+            POSTGRES_USER: root
+            POSTGRES_PASSWORD: root
+        ports:
+            - '5433:5432'
+        container_name: db
+
+    scheduler:
+        build:
+          context: .
+          dockerfile: docker/scheduler/Dockerfile
+        container_name: scheduler
+        volumes:
+          - ./:/var/www
