@@ -19,7 +19,7 @@ class AuthRequest
    public string $login;
 
    /**
-    * @OA\Property(property="password", type="string", example="querty123", description="password")
+    * @OA\Property(property="password", type="string", example="qwerty123", description="password")
     *
     * @var string $password
     */
