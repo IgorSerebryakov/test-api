@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services;
+namespace App\Modules\Task\Services;
 
-use App\DTO\TaskDTO;
 use App\Models\Task;
+use App\Modules\Task\DTO\TaskDTO;
 
 class TaskService
 {

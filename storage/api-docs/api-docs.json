@@ -1,0 +1,179 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Test-API Documentation",
+        "description": "Documentation for App",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "User auth (by email)",
+                "operationId": "Login",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AuthRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AuthResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/api/v1/register": {
+            "post": {
+                "tags": [
+                    "Register"
+                ],
+                "summary": "Register user",
+                "operationId": "Register",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RegisterResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "AuthRequest": {
+                "title": "AuthRequest",
+                "description": "Desc",
+                "properties": {
+                    "login": {
+                        "description": "login",
+                        "type": "string",
+                        "example": "Joedoe@email.com"
+                    },
+                    "password": {
+                        "description": "password",
+                        "type": "string",
+                        "example": "querty123"
+                    }
+                },
+                "type": "object"
+            },
+            "AuthResponse": {
+                "title": "AuthResponse",
+                "description": "Desc",
+                "properties": {
+                    "user": {
+                        "description": "$user",
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "id": {
+                                    "description": "id",
+                                    "type": "integer",
+                                    "example": "20"
+                                },
+                                "name": {
+                                    "description": "name",
+                                    "type": "string",
+                                    "example": "Joe"
+                                },
+                                "email": {
+                                    "description": "email",
+                                    "type": "string",
+                                    "example": "Joedoe@email.com"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "token": {
+                        "description": "token",
+                        "type": "string",
+                        "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0Ojg4NzYvYXBpL3YxL2xvZ2luIiwiaWF0IjoxNzI3MzYwMjAxLCJleHAiOjE3MjczNjM4MDEsIm5iZiI6MTcyNzM2MDIwMSwianRpIjoicjVlSWxuT0s2QkN6QnZ6RiIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.EaCdgb8MUlgDKQlijCSAPfodCeYO5XK-e4a1oeZMmpo"
+                    }
+                },
+                "type": "object"
+            },
+            "RegisterRequest": {
+                "title": "RegisterRequest",
+                "description": "Desc",
+                "properties": {
+                    "name": {
+                        "description": "name",
+                        "type": "string",
+                        "example": "Joe"
+                    },
+                    "password": {
+                        "description": "password",
+                        "type": "string",
+                        "example": "qwerty123"
+                    },
+                    "email": {
+                        "description": "email",
+                        "type": "email",
+                        "example": "Joedoe@email.com"
+                    }
+                },
+                "type": "object"
+            },
+            "RegisterResponse": {
+                "title": "RegisterResponse",
+                "description": "Desc",
+                "properties": {
+                    "message": {
+                        "description": "message",
+                        "type": "string",
+                        "example": "Registration was successful"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Register",
+            "description": "Register"
+        }
+    ]
+}

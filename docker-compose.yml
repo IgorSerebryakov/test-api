@@ -11,6 +11,8 @@ services:
         depends_on:
             - app
         container_name: app_nginx
+        networks:
+            - app-network
 
     app:
         build:
@@ -22,6 +24,8 @@ services:
         depends_on:
             - db
         container_name: app
+        networks:
+            - app-network
 
     db:
         image: postgres:14
@@ -35,11 +39,21 @@ services:
         ports:
             - '5433:5432'
         container_name: db
+        networks:
+            - app-network
 
     scheduler:
         build:
-          context: .
-          dockerfile: docker/scheduler/Dockerfile
-        container_name: scheduler
+            context: .
+            dockerfile: docker/scheduler/Dockerfile
         volumes:
-          - ./:/var/www
+            - ./:/var/www
+        depends_on:
+            - app
+        container_name: scheduler
+        networks:
+            - app-network
+
+networks:
+    app-network:
+        driver: bridge

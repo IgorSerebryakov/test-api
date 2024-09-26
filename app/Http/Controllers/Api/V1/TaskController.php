@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\DTO\TaskDTO;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreTaskRequest;
-use App\Http\Requests\TaskDeleteRequest;
-use App\Http\Requests\UpdateTaskRequest;
-use App\Http\Resources\ErrorResource;
-use App\Http\Resources\SuccessResource;
-use App\Http\Resources\TaskCollection;
-use App\Http\Resources\TaskResource;
 use App\Models\Task;
-use App\Services\TaskService;
-use Illuminate\Http\Request;
+use App\Modules\Base\Resources\ErrorResource;
+use App\Modules\Base\Resources\SuccessResource;
+use App\Modules\Task\DTO\TaskDTO;
+use App\Modules\Task\Requests\StoreTaskRequest;
+use App\Modules\Task\Requests\TaskDeleteRequest;
+use App\Modules\Task\Requests\UpdateTaskRequest;
+use App\Modules\Task\Resources\TaskCollection;
+use App\Modules\Task\Resources\TaskResource;
+use App\Modules\Task\Services\TaskService;
 use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller

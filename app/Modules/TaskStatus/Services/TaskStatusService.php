@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services;
+namespace App\Modules\TaskStatus\Services;
 
-use App\DTO\TaskStatusDTO;
 use App\Models\TaskStatus;
+use App\Modules\TaskStatus\DTO\TaskStatusDTO;
 
 class TaskStatusService
 {

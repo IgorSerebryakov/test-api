@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\DTO\TaskStatusDTO;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreTaskStatusRequest;
-use App\Http\Requests\TaskStatusDeleteRequest;
-use App\Http\Requests\UpdateTaskStatusRequest;
-use App\Http\Resources\ErrorResource;
-use App\Http\Resources\SuccessResource;
-use App\Http\Resources\TaskStatusCollection;
-use App\Http\Resources\TaskStatusResource;
 use App\Models\TaskStatus;
-use App\Services\TaskStatusService;
-use Illuminate\Http\Request;
+use App\Modules\Base\Resources\ErrorResource;
+use App\Modules\Base\Resources\SuccessResource;
+use App\Modules\TaskStatus\DTO\TaskStatusDTO;
+use App\Modules\TaskStatus\Requests\StoreTaskStatusRequest;
+use App\Modules\TaskStatus\Requests\TaskStatusDeleteRequest;
+use App\Modules\TaskStatus\Requests\UpdateTaskStatusRequest;
+use App\Modules\TaskStatus\Resources\TaskStatusCollection;
+use App\Modules\TaskStatus\Resources\TaskStatusResource;
+use App\Modules\TaskStatus\Services\TaskStatusService;
 
 class TaskStatusController extends Controller
 {
