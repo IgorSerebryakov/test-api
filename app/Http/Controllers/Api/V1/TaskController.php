@@ -9,6 +9,7 @@ use App\Modules\Base\Resources\SuccessResource;
 use App\Modules\Task\DTO\TaskDTO;
 use App\Modules\Task\Requests\StoreTaskRequest;
 use App\Modules\Task\Requests\TaskDeleteRequest;
+use App\Modules\Task\Requests\TaskShowRequest;
 use App\Modules\Task\Requests\UpdateTaskRequest;
 use App\Modules\Task\Resources\TaskCollection;
 use App\Modules\Task\Resources\TaskResource;
@@ -22,7 +23,22 @@ class TaskController extends Controller
     ) {}
 
     /**
-     * Display a listing of the resource.
+     * @OA\Get (
+     *     path="/api/v1/auth/tasks",
+     *     summary="Get all user's tasks",
+     *     tags={"Task"},
+     *     operationId="TaskList",
+     *     security={{ "bearerAuth": {} }},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Success",
+     *         @OA\JsonContent(ref="#/components/schemas/TasksResponse")
+     *     ),
+     *     @OA\Response(
+     *         response="400",
+     *         description="Bad Request",
+     *     ),
+     *)
      */
     public function index()
     {
@@ -30,14 +46,33 @@ class TaskController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post (
+     *     path="/api/v1/auth/tasks",
+     *     summary="Create a new task",
+     *     tags={"Task"},
+     *     operationId="CreateTask",
+     *     security={{ "bearerAuth": {} }},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/StoreTaskRequest")
+     *     ),
+     *     @OA\Response(
+     *         response="201",
+     *         description="Created",
+     *         @OA\JsonContent(ref="#/components/schemas/StoreTaskResponse")
+     *     ),
+     *     @OA\Response(
+     *         response="400",
+     *         description="Bad Request"
+     *     )
+     *)
      */
     public function store(StoreTaskRequest $request)
     {
         $dto = new TaskDTO(
             id: null,
             name: $request->name,
-            statusId: $request->status_id,
+            status: $request->status,
             userId: Auth::id()
         );
 
@@ -46,22 +81,75 @@ class TaskController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get (
+     *     path="/api/v1/auth/tasks/{task}",
+     *     summary="Get user's task by id",
+     *     tags={"Task"},
+     *     operationId="TaskShow",
+     *     security={{ "bearerAuth": {} }},
+     *     @OA\Parameter(
+     *         description="task's id",
+     *         in="path",
+     *         name="task",
+     *         required=true,
+     *         example=1
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Success",
+     *         @OA\JsonContent(ref="#/components/schemas/TaskResponse")
+     *     ),
+     *     @OA\Response(
+     *         response="500",
+     *         description="Internal Server Error",
+     *     ),
+     *)
      */
-    public function show(Task $task)
+    public function show(TaskShowRequest $request)
     {
-        return new TaskResource(Task::query()->with('user')->find($task->id));
+        $task = Task::query()
+            ->where('id', $request->id)
+            ->where('user_id', Auth::id())
+            ->first();
+
+        return new TaskResource($task);
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\Patch (
+     *     path="/api/v1/auth/tasks/{task}",
+     *     summary="Update user's task",
+     *     tags={"Task"},
+     *     operationId="UpdateTask",
+     *     security={{ "bearerAuth": {} }},
+     *     @OA\Parameter(
+     *          description="task's id",
+     *          in="path",
+     *          name="task",
+     *          required=true,
+     *          example=1
+     *      ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/UpdateTaskRequest")
+     *     ),
+     *     @OA\Response(
+     *         response="201",
+     *         description="Updated",
+     *         @OA\JsonContent(ref="#/components/schemas/UpdateTaskResponse")
+     *     ),
+     *     @OA\Response(
+     *         response="400",
+     *         description="Bad Request"
+     *     )
+     *)
      */
     public function update(UpdateTaskRequest $request)
     {
         $dto = new TaskDTO(
             id: $request->id,
             name: $request->name,
-            statusId: $request->status_id,
+            status: $request->status,
             userId: Auth::id()
         );
 
@@ -70,12 +158,38 @@ class TaskController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete (
+     *     path="/api/v1/auth/tasks/{task}",
+     *     summary="Delete user's task",
+     *     tags={"Task"},
+     *     operationId="DeleteTask",
+     *     security={{ "bearerAuth": {} }},
+     *     @OA\Parameter(
+     *          description="task's id",
+     *          in="path",
+     *          name="task",
+     *          required=true,
+     *          example=1
+     *      ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Success",
+     *         @OA\JsonContent(ref="#/components/schemas/SuccessResponse")
+     *     ),
+     *     @OA\Response(
+     *         response="422",
+     *         description="Error"
+     *     )
+     *)
      */
     public function destroy(TaskDeleteRequest $request)
     {
         try {
-            $task = Task::query()->find($request->id);
+            $task = Task::query()
+                ->where('id', $request->id)
+                ->where('user_id', Auth::id())
+                ->first();
+
             if (empty($task)) {
                 throw new \DomainException('Task is not found.');
             }

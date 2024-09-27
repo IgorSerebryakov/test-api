@@ -18,7 +18,7 @@ class AuthController extends Controller
     ) {}
 
     /**
-     * @OA\Post (
+     * @OA\Post(
      *     path="/api/v1/login",
      *     summary="User auth (by email)",
      *     tags={"Auth"},
@@ -37,7 +37,6 @@ class AuthController extends Controller
      *         description="Bad Request",
      *     ),
      *)
-     *
      */
     public function login(AuthRequest $request)
     {
@@ -55,17 +54,58 @@ class AuthController extends Controller
         return new AuthResource($userDTO);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/v1/auth/logout",
+     *     summary="User logout",
+     *     tags={"Auth"},
+     *     operationId="Logout",
+     *     security={{ "bearerAuth": {} }},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Success"
+     *     ),
+     *)
+     */
     public function logout()
     {
         auth()->logout(true);
         return new SuccessResource(null);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/v1/auth/refresh",
+     *     summary="Refresh token",
+     *     tags={"Auth"},
+     *     operationId="Refresh",
+     *     security={{ "bearerAuth": {} }},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Success",
+     *         @OA\JsonContent(ref="#/components/schemas/RefreshResponse"),
+     *     ),
+     *)
+     */
     public function refresh()
     {
         return response()->json(['token' => auth()->refresh()]);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/v1/auth/me",
+     *     summary="Get auth user",
+     *     tags={"Auth"},
+     *     operationId="Me",
+     *     security={{ "bearerAuth": {} }},
+     *      @OA\Response(
+     *          response="200",
+     *          description="Success",
+     *          @OA\JsonContent(ref="#/components/schemas/MeResponse")
+     *      ),
+     * )
+     */
     public function me()
     {
         return response()->json(auth()->user());

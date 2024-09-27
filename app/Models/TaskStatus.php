@@ -10,6 +10,7 @@ class TaskStatus extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'status'];
     public function tasks(): hasMany
     {
         return $this->hasMany(Task::class);

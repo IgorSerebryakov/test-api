@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Uncompleted Tasks</title>
+    <title>Невыполненные задачи</title>
 </head>
 <body>
-<h1>Your Uncompleted Tasks</h1>
+<h1>Твои невыполненные задачи</h1>
 
 @if($tasks->isEmpty())
-    <p>You have no uncompleted tasks at the moment.</p>
+    <p>У тебя нет невыполненных задач.</p>
 @else
     <ul>
         @foreach($tasks as $task)

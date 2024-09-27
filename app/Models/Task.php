@@ -9,6 +9,12 @@ class Task extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'status_id',
+        'user_id'
+    ];
+
     public function status()
     {
         return $this->belongsTo(TaskStatus::class);

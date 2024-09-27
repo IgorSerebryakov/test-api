@@ -40,6 +40,77 @@
                 }
             }
         },
+        "/api/v1/auth/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "User logout",
+                "operationId": "Logout",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/auth/refresh": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Refresh token",
+                "operationId": "Refresh",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RefreshResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/auth/me": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Get auth user",
+                "operationId": "Me",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MeResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/register": {
             "post": {
                 "tags": [
@@ -73,6 +144,221 @@
                     }
                 }
             }
+        },
+        "/api/v1/auth/tasks": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Get all user's tasks",
+                "operationId": "TaskList",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TasksResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Create a new task",
+                "operationId": "CreateTask",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreTaskRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StoreTaskResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/auth/tasks/{task}": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Get user's task by id",
+                "operationId": "TaskShow",
+                "parameters": [
+                    {
+                        "name": "task",
+                        "in": "path",
+                        "description": "task's id",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Delete user's task",
+                "operationId": "DeleteTask",
+                "parameters": [
+                    {
+                        "name": "task",
+                        "in": "path",
+                        "description": "task's id",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SuccessResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Update user's task",
+                "operationId": "UpdateTask",
+                "parameters": [
+                    {
+                        "name": "task",
+                        "in": "path",
+                        "description": "task's id",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateTaskRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UpdateTaskResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/auth/task-statuses": {
+            "get": {
+                "tags": [
+                    "TaskStatus"
+                ],
+                "summary": "Get all TaskStatuses",
+                "operationId": "TaskStatusList",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskStatusesResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -89,7 +375,7 @@
                     "password": {
                         "description": "password",
                         "type": "string",
-                        "example": "querty123"
+                        "example": "qwerty123"
                     }
                 },
                 "type": "object"
@@ -122,6 +408,49 @@
                             "type": "object"
                         }
                     },
+                    "token": {
+                        "description": "token",
+                        "type": "string",
+                        "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0Ojg4NzYvYXBpL3YxL2xvZ2luIiwiaWF0IjoxNzI3MzYwMjAxLCJleHAiOjE3MjczNjM4MDEsIm5iZiI6MTcyNzM2MDIwMSwianRpIjoicjVlSWxuT0s2QkN6QnZ6RiIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.EaCdgb8MUlgDKQlijCSAPfodCeYO5XK-e4a1oeZMmpo"
+                    }
+                },
+                "type": "object"
+            },
+            "MeResponse": {
+                "title": "MeResponse",
+                "description": "Desc",
+                "properties": {
+                    "user": {
+                        "description": "$user",
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "id": {
+                                    "description": "id",
+                                    "type": "integer",
+                                    "example": "20"
+                                },
+                                "name": {
+                                    "description": "name",
+                                    "type": "string",
+                                    "example": "Joe"
+                                },
+                                "email": {
+                                    "description": "email",
+                                    "type": "string",
+                                    "example": "Joedoe@email.com"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "RefreshResponse": {
+                "title": "RefreshResponse",
+                "description": "Desc",
+                "properties": {
                     "token": {
                         "description": "token",
                         "type": "string",
@@ -163,6 +492,259 @@
                     }
                 },
                 "type": "object"
+            },
+            "StoreTaskRequest": {
+                "title": "TaskFirstItem",
+                "description": "Desc",
+                "properties": {
+                    "name": {
+                        "description": "name",
+                        "type": "string",
+                        "example": "Do some job"
+                    },
+                    "status": {
+                        "description": "status",
+                        "type": "string",
+                        "example": "Completed"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreTaskResponse": {
+                "title": "StoreTaskResponse",
+                "description": "Desc",
+                "properties": {
+                    "id": {
+                        "description": "id",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "name": {
+                        "description": "name",
+                        "type": "string",
+                        "example": "Do some job"
+                    },
+                    "status_id": {
+                        "description": "status_id",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "user_id": {
+                        "description": "user_id",
+                        "type": "integer",
+                        "example": "1"
+                    }
+                },
+                "type": "object"
+            },
+            "SuccessResponse": {
+                "title": "SuccessResponse",
+                "description": "Desc",
+                "properties": {
+                    "status": {
+                        "description": "status",
+                        "type": "boolean",
+                        "example": "true"
+                    }
+                },
+                "type": "object"
+            },
+            "TaskFirstItem": {
+                "title": "TaskFirstItem",
+                "description": "Desc",
+                "properties": {
+                    "id": {
+                        "description": "id",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "name": {
+                        "description": "name",
+                        "type": "string",
+                        "example": "Do some exercises"
+                    },
+                    "status": {
+                        "description": "status",
+                        "type": "string",
+                        "example": "Completed"
+                    }
+                },
+                "type": "object"
+            },
+            "TaskResponse": {
+                "title": "TaskResponse",
+                "description": "Desc",
+                "properties": {
+                    "id": {
+                        "description": "id",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "name": {
+                        "description": "name",
+                        "type": "string",
+                        "example": "Do some job"
+                    },
+                    "status_id": {
+                        "description": "status_id",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "user_id": {
+                        "description": "user_id",
+                        "type": "integer",
+                        "example": "1"
+                    }
+                },
+                "type": "object"
+            },
+            "TaskSecondItem": {
+                "title": "TaskSecondItem",
+                "description": "Desc",
+                "properties": {
+                    "id": {
+                        "description": "id",
+                        "type": "integer",
+                        "example": "2"
+                    },
+                    "name": {
+                        "description": "name",
+                        "type": "string",
+                        "example": "Do some job"
+                    },
+                    "status": {
+                        "description": "status",
+                        "type": "string",
+                        "example": "Not Completed"
+                    }
+                },
+                "type": "object"
+            },
+            "TaskStatusFirstItem": {
+                "title": "TaskStatusFirstItem",
+                "description": "Desc",
+                "properties": {
+                    "id": {
+                        "description": "id",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "name": {
+                        "description": "name",
+                        "type": "string",
+                        "example": "Completed"
+                    }
+                },
+                "type": "object"
+            },
+            "TaskStatusSecondItem": {
+                "title": "TaskStatusSecondItem",
+                "description": "Desc",
+                "properties": {
+                    "id": {
+                        "description": "id",
+                        "type": "integer",
+                        "example": "2"
+                    },
+                    "name": {
+                        "description": "name",
+                        "type": "string",
+                        "example": "Not Completed"
+                    }
+                },
+                "type": "object"
+            },
+            "TaskStatusesResponse": {
+                "title": "TaskStatusesResponse",
+                "description": "Desc",
+                "properties": {
+                    "data": {
+                        "description": "$data;",
+                        "type": "array",
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/components/schemas/TaskStatusFirstItem"
+                                },
+                                {
+                                    "$ref": "#/components/schemas/TaskStatusSecondItem"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "TasksResponse": {
+                "title": "TasksResponse",
+                "description": "Desc",
+                "properties": {
+                    "data": {
+                        "description": "$data",
+                        "type": "array",
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/components/schemas/TaskFirstItem"
+                                },
+                                {
+                                    "$ref": "#/components/schemas/TaskSecondItem"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateTaskRequest": {
+                "title": "TaskFirstItem",
+                "description": "Desc",
+                "properties": {
+                    "name": {
+                        "description": "name",
+                        "type": "string",
+                        "example": "Do some job"
+                    },
+                    "status": {
+                        "description": "status",
+                        "type": "string",
+                        "example": "Completed"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateTaskResponse": {
+                "title": "TaskFirstItem",
+                "description": "Desc",
+                "properties": {
+                    "id": {
+                        "description": "id",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "name": {
+                        "description": "name",
+                        "type": "string",
+                        "example": "Do some job"
+                    },
+                    "status_id": {
+                        "description": "status_id",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "user_id": {
+                        "description": "user_id",
+                        "type": "integer",
+                        "example": "1"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
             }
         }
     },
@@ -174,6 +756,14 @@
         {
             "name": "Register",
             "description": "Register"
+        },
+        {
+            "name": "Task",
+            "description": "Task"
+        },
+        {
+            "name": "TaskStatus",
+            "description": "TaskStatus"
         }
     ]
 }

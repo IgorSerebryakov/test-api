@@ -10,35 +10,34 @@ use App\Modules\Security\Requests\RegisterRequest;
 use App\Modules\Security\Resources\RegisterResource;
 use App\Modules\Security\Services\RegisterService;
 
-
-/**
- * @OA\Post (
- *     path="/api/v1/register",
- *     summary="Register user",
- *     tags={"Register"},
- *     operationId="Register",
- *     @OA\RequestBody(
- *         required=true,
- *         @OA\JsonContent(ref="#/components/schemas/RegisterRequest")
- *     ),
- *     @OA\Response(
- *         response="200",
- *         description="Success",
- *         @OA\JsonContent(ref="#/components/schemas/RegisterResponse")
- *     ),
- *     @OA\Response(
- *         response="400",
- *         description="Bad Request",
- *     ),
- *)
- *
- */
 class RegisterController extends Controller
 {
     public function __construct(
         public RegisterService $registerService
     ) {}
 
+    /**
+     * @OA\Post (
+     *     path="/api/v1/register",
+     *     summary="Register user",
+     *     tags={"Register"},
+     *     operationId="Register",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/RegisterRequest")
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="Success",
+     *         @OA\JsonContent(ref="#/components/schemas/RegisterResponse")
+     *     ),
+     *     @OA\Response(
+     *         response="400",
+     *         description="Bad Request",
+     *     ),
+     *)
+     *
+     */
     public function register(RegisterRequest $request)
     {
         $registerDTO = new RegisterDTO(

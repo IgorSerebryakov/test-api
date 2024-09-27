@@ -19,8 +19,24 @@ class TaskStatusController extends Controller
     public function __construct(
         protected TaskStatusService $taskStatusService
     ) {}
+
     /**
-     * Display a listing of the resource.
+     * @OA\Get (
+     *     path="/api/v1/auth/task-statuses",
+     *     summary="Get all TaskStatuses",
+     *     tags={"TaskStatus"},
+     *     operationId="TaskStatusList",
+     *     security={{ "bearerAuth": {} }},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Success",
+     *         @OA\JsonContent(ref="#/components/schemas/TaskStatusesResponse")
+     *     ),
+     *     @OA\Response(
+     *         response="400",
+     *         description="Bad Request",
+     *     ),
+     *)
      */
     public function index()
     {
