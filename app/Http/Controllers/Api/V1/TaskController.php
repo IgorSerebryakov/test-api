@@ -23,7 +23,7 @@ class TaskController extends Controller
     ) {}
 
     /**
-     * @OA\Get (
+     * @OA\Get(
      *     path="/api/v1/auth/tasks",
      *     summary="Get all user's tasks",
      *     tags={"Task"},
@@ -33,10 +33,6 @@ class TaskController extends Controller
      *         response="200",
      *         description="Success",
      *         @OA\JsonContent(ref="#/components/schemas/TasksResponse")
-     *     ),
-     *     @OA\Response(
-     *         response="400",
-     *         description="Bad Request",
      *     ),
      *)
      */
@@ -63,7 +59,7 @@ class TaskController extends Controller
      *     ),
      *     @OA\Response(
      *         response="400",
-     *         description="Bad Request"
+     *         description="Validation exception"
      *     )
      *)
      */
@@ -83,7 +79,7 @@ class TaskController extends Controller
     /**
      * @OA\Get (
      *     path="/api/v1/auth/tasks/{task}",
-     *     summary="Get user's task by id",
+     *     summary="Get user's task",
      *     tags={"Task"},
      *     operationId="TaskShow",
      *     security={{ "bearerAuth": {} }},
@@ -100,9 +96,13 @@ class TaskController extends Controller
      *         @OA\JsonContent(ref="#/components/schemas/TaskResponse")
      *     ),
      *     @OA\Response(
-     *         response="500",
-     *         description="Internal Server Error",
+     *         response="404",
+     *         description="Task not found",
      *     ),
+     *     @OA\Response(
+     *          response="400",
+     *          description="Validation exception"
+     *      ),
      *)
      */
     public function show(TaskShowRequest $request)
@@ -134,14 +134,18 @@ class TaskController extends Controller
      *         @OA\JsonContent(ref="#/components/schemas/UpdateTaskRequest")
      *     ),
      *     @OA\Response(
-     *         response="201",
-     *         description="Updated",
+     *         response="200",
+     *         description="Success",
      *         @OA\JsonContent(ref="#/components/schemas/UpdateTaskResponse")
      *     ),
      *     @OA\Response(
-     *         response="400",
-     *         description="Bad Request"
-     *     )
+     *          response="404",
+     *          description="Task not found",
+     *      ),
+     *      @OA\Response(
+     *           response="400",
+     *           description="Validation exception"
+     *       ),
      *)
      */
     public function update(UpdateTaskRequest $request)
@@ -172,32 +176,31 @@ class TaskController extends Controller
      *          example=1
      *      ),
      *     @OA\Response(
-     *         response="200",
-     *         description="Success",
-     *         @OA\JsonContent(ref="#/components/schemas/SuccessResponse")
+     *         response="204",
+     *         description="Successfully deleted",
+     *         @OA\MediaType(
+     *               mediaType="application/json"
+     *         )
      *     ),
      *     @OA\Response(
-     *         response="422",
-     *         description="Error"
+     *         response="404",
+     *         description="Task not found",
+     *     ),
+     *     @OA\Response(
+     *         response="400",
+     *         description="Validation exception"
      *     )
      *)
      */
     public function destroy(TaskDeleteRequest $request)
     {
-        try {
-            $task = Task::query()
-                ->where('id', $request->id)
-                ->where('user_id', Auth::id())
-                ->first();
-
-            if (empty($task)) {
-                throw new \DomainException('Task is not found.');
-            }
-        } catch (\Exception $exception) {
-            return new ErrorResource($exception);
-        }
+        $task = Task::query()
+            ->where('id', $request->id)
+            ->where('user_id', Auth::id())
+            ->first();
 
         $task->delete();
-        return new SuccessResource(null);
+
+        return response()->noContent();
     }
 }

@@ -5,25 +5,14 @@ namespace App\Schemas;
 /**
  * @OA\Schema(
  *     description="Desc",
- *     type="object",
- *     title="TasksResponse"
+ *     type="array",
+ *     title="TasksResponse",
+ *     @OA\Items(
+ *          anyOf={
+ *              @OA\Schema(ref="#/components/schemas/TaskFirstItem"),
+ *              @OA\Schema(ref="#/components/schemas/TaskSecondItem")
+ *          }
+ *     ),
  * )
  */
-class TasksResponse
-{
-   /**
-    * @OA\Property(
-    *     property="data",
-    *     type="array",
-    *     @OA\Items(
-    *         anyOf={
-    *             @OA\Schema(ref="#/components/schemas/TaskFirstItem"),
-    *             @OA\Schema(ref="#/components/schemas/TaskSecondItem")
-    *         }
-    *     )
-    * )
-    *
-    * @var array $data
-    */
-   public array $data;
-}
+class TasksResponse {}

@@ -14,11 +14,11 @@ Route::group(['prefix' => 'v1'], function () {
         'middleware' => ['api', 'auth'],
         'prefix' => 'auth'
     ], function () {
-        Route::apiResource('tasks', TaskController::class);
-        Route::apiResource('task-statuses', TaskStatusController::class);
-
         Route::post('/me', [AuthController::class, 'me'])->name('user');
         Route::post('/logout', [AuthController::class, 'logout'])->name('user.logout');
         Route::post('/refresh', [AuthController::class, 'refresh'])->name('user.token.refresh');
+
+        Route::apiResource('tasks', TaskController::class);
+        Route::apiResource('task-statuses', TaskStatusController::class);
     });
 });

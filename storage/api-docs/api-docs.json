@@ -162,9 +162,6 @@
                                 }
                             }
                         }
-                    },
-                    "400": {
-                        "description": "Bad Request"
                     }
                 },
                 "security": [
@@ -201,7 +198,7 @@
                         }
                     },
                     "400": {
-                        "description": "Bad Request"
+                        "description": "Validation exception"
                     }
                 },
                 "security": [
@@ -238,8 +235,11 @@
                             }
                         }
                     },
-                    "500": {
-                        "description": "Internal Server Error"
+                    "404": {
+                        "description": "Task not found"
+                    },
+                    "400": {
+                        "description": "Validation exception"
                     }
                 },
                 "security": [
@@ -264,18 +264,17 @@
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "Success",
+                    "204": {
+                        "description": "Successfully deleted",
                         "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/SuccessResponse"
-                                }
-                            }
+                            "application/json": {}
                         }
                     },
-                    "422": {
-                        "description": "Error"
+                    "404": {
+                        "description": "Task not found"
+                    },
+                    "400": {
+                        "description": "Validation exception"
                     }
                 },
                 "security": [
@@ -310,8 +309,8 @@
                     }
                 },
                 "responses": {
-                    "201": {
-                        "description": "Updated",
+                    "200": {
+                        "description": "Success",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -320,8 +319,11 @@
                             }
                         }
                     },
+                    "404": {
+                        "description": "Task not found"
+                    },
                     "400": {
-                        "description": "Bad Request"
+                        "description": "Validation exception"
                     }
                 },
                 "security": [
@@ -345,6 +347,162 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/TaskStatusesResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "TaskStatus"
+                ],
+                "summary": "Create a TaskStatus",
+                "operationId": "CreateTaskStatus",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreTaskStatusRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StoreTaskStatusResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Validation Exception"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/auth/task-statuses/{task_status}": {
+            "get": {
+                "tags": [
+                    "TaskStatus"
+                ],
+                "summary": "Get a TaskStatus",
+                "operationId": "TaskStatusShow",
+                "parameters": [
+                    {
+                        "name": "task_status",
+                        "in": "path",
+                        "description": "taskstatus id",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "TaskStatus not found"
+                    },
+                    "400": {
+                        "description": "Validation exception"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "TaskStatus"
+                ],
+                "summary": "Delete a TaskStatus",
+                "operationId": "DeleteTaskStatus",
+                "parameters": [
+                    {
+                        "name": "task_status",
+                        "in": "path",
+                        "description": "taskstatus id",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successfully deleted",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "404": {
+                        "description": "Task not found"
+                    },
+                    "400": {
+                        "description": "Validation exception"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "TaskStatus"
+                ],
+                "summary": "Update a TaskStatus",
+                "operationId": "UpdateTaskStatus",
+                "parameters": [
+                    {
+                        "name": "task_status",
+                        "in": "path",
+                        "description": "taskstatus id",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateTaskStatusRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UpdateTaskStatusResponse"
                                 }
                             }
                         }
@@ -524,15 +682,44 @@
                         "type": "string",
                         "example": "Do some job"
                     },
-                    "status_id": {
+                    "statusId": {
                         "description": "status_id",
                         "type": "integer",
                         "example": "1"
                     },
-                    "user_id": {
+                    "userId": {
                         "description": "user_id",
                         "type": "integer",
                         "example": "1"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreTaskStatusRequest": {
+                "title": "StoreTaskStatusRequest",
+                "description": "Desc",
+                "properties": {
+                    "name": {
+                        "description": "name",
+                        "type": "string",
+                        "example": "Completed"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreTaskStatusResponse": {
+                "title": "StoreTaskStatusRequest",
+                "description": "Desc",
+                "properties": {
+                    "id": {
+                        "description": "id",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "name": {
+                        "description": "name",
+                        "type": "string",
+                        "example": "Completed"
                     }
                 },
                 "type": "object"
@@ -541,10 +728,10 @@
                 "title": "SuccessResponse",
                 "description": "Desc",
                 "properties": {
-                    "status": {
-                        "description": "status",
-                        "type": "boolean",
-                        "example": "true"
+                    "message": {
+                        "description": "message",
+                        "type": "string",
+                        "example": "success"
                     }
                 },
                 "type": "object"
@@ -585,12 +772,12 @@
                         "type": "string",
                         "example": "Do some job"
                     },
-                    "status_id": {
+                    "statusId": {
                         "description": "status_id",
                         "type": "integer",
                         "example": "1"
                     },
-                    "user_id": {
+                    "userId": {
                         "description": "user_id",
                         "type": "integer",
                         "example": "1"
@@ -637,6 +824,23 @@
                 },
                 "type": "object"
             },
+            "TaskStatusResponse": {
+                "title": "TaskStatusResponse",
+                "description": "Desc",
+                "properties": {
+                    "id": {
+                        "description": "id",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "name": {
+                        "description": "name",
+                        "type": "string",
+                        "example": "Completed"
+                    }
+                },
+                "type": "object"
+            },
             "TaskStatusSecondItem": {
                 "title": "TaskStatusSecondItem",
                 "description": "Desc",
@@ -657,47 +861,35 @@
             "TaskStatusesResponse": {
                 "title": "TaskStatusesResponse",
                 "description": "Desc",
-                "properties": {
-                    "data": {
-                        "description": "$data;",
-                        "type": "array",
-                        "items": {
-                            "anyOf": [
-                                {
-                                    "$ref": "#/components/schemas/TaskStatusFirstItem"
-                                },
-                                {
-                                    "$ref": "#/components/schemas/TaskStatusSecondItem"
-                                }
-                            ]
+                "type": "array",
+                "items": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/components/schemas/TaskStatusFirstItem"
+                        },
+                        {
+                            "$ref": "#/components/schemas/TaskStatusSecondItem"
                         }
-                    }
-                },
-                "type": "object"
+                    ]
+                }
             },
             "TasksResponse": {
                 "title": "TasksResponse",
                 "description": "Desc",
-                "properties": {
-                    "data": {
-                        "description": "$data",
-                        "type": "array",
-                        "items": {
-                            "anyOf": [
-                                {
-                                    "$ref": "#/components/schemas/TaskFirstItem"
-                                },
-                                {
-                                    "$ref": "#/components/schemas/TaskSecondItem"
-                                }
-                            ]
+                "type": "array",
+                "items": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/components/schemas/TaskFirstItem"
+                        },
+                        {
+                            "$ref": "#/components/schemas/TaskSecondItem"
                         }
-                    }
-                },
-                "type": "object"
+                    ]
+                }
             },
             "UpdateTaskRequest": {
-                "title": "TaskFirstItem",
+                "title": "UpdateTaskRequest",
                 "description": "Desc",
                 "properties": {
                     "name": {
@@ -714,7 +906,7 @@
                 "type": "object"
             },
             "UpdateTaskResponse": {
-                "title": "TaskFirstItem",
+                "title": "UpdateTaskResponse",
                 "description": "Desc",
                 "properties": {
                     "id": {
@@ -736,6 +928,35 @@
                         "description": "user_id",
                         "type": "integer",
                         "example": "1"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateTaskStatusRequest": {
+                "title": "UpdateTaskStatusRequest",
+                "description": "Desc",
+                "properties": {
+                    "name": {
+                        "description": "name",
+                        "type": "string",
+                        "example": "archived"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateTaskStatusResponse": {
+                "title": "UpdateTaskStatusResponse",
+                "description": "Desc",
+                "properties": {
+                    "id": {
+                        "description": "id",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "name": {
+                        "description": "name",
+                        "type": "string",
+                        "example": "archived"
                     }
                 },
                 "type": "object"

@@ -6,7 +6,7 @@ namespace App\Schemas;
  * @OA\Schema(
  *     description="Desc",
  *     type="object",
- *     title="TaskFirstItem"
+ *     title="UpdateTaskResponse"
  * )
  */
 class UpdateTaskResponse

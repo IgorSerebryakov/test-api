@@ -2,27 +2,35 @@
 
 namespace App\Modules\TaskStatus\Requests;
 
+use App\Modules\Base\Resources\ValidationResource;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class StoreTaskStatusRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'unique:task_statuses']
         ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.unique' => 'Status already exists'
+        ];
+    }
+
+    protected function failedValidation(Validator $validator): void
+    {
+        $message = $validator->errors()->messages()['name'];
+
+        throw new ValidationException(
+            validator: $validator,
+            response: new ValidationResource($message, 400)
+        );
     }
 }

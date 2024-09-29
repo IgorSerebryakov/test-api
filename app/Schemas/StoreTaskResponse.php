@@ -29,7 +29,7 @@ class StoreTaskResponse
     public string $name;
 
     /**
-     * @OA\Property(property="status_id", type="integer", example="1", description="status_id")
+     * @OA\Property(property="statusId", type="integer", example="1", description="status_id")
      *
      * @var int $status_id;
      *
@@ -37,7 +37,7 @@ class StoreTaskResponse
     public int $status_id;
 
     /**
-     * @OA\Property(property="user_id", type="integer", example="1", description="user_id")
+     * @OA\Property(property="userId", type="integer", example="1", description="user_id")
      *
      * @var int $user_id;
      *

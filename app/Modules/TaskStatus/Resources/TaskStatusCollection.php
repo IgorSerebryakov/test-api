@@ -14,16 +14,16 @@ class TaskStatusCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        return [
-            'data' => $this->collection->map(function ($item) {
-                return [
-                    'id' => $item->id,
-                    'name' => $item->name
-                ];
-            }),
-            'links' => [
-                'self' => 'link-value'
-            ]
-        ];
+        return $this->collection->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'name' => $item->name
+            ];
+        })->toArray();
+    }
+
+    public function toResponse($request)
+    {
+        return response()->json($this->toArray($request));
     }
 }

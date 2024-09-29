@@ -12,10 +12,10 @@ namespace App\Schemas;
 class SuccessResponse
 {
     /**
-     * @OA\Property(property="status", type="bool", example="true", description="status")
+     * @OA\Property(property="message", type="string", example="success", description="message")
      *
-     * @var bool $status
+     * @var string $message
      *
      */
-    public bool $status;
+    public string $message;
 }

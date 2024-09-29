@@ -7,10 +7,11 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class SuccessResource extends JsonResource
 {
+    public static $wrap = null;
     public function toArray(Request $request): array
     {
         return [
-            'status' => true,
+            'message' => 'success',
         ];
     }
 }
