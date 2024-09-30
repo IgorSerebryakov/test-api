@@ -1,6 +1,6 @@
 #!/bin/bash
 
-composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+composer install --no-interaction --prefer-dist --optimize-autoloader
 
 chmod -R 777 storage
 

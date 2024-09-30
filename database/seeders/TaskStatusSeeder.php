@@ -12,7 +12,7 @@ class TaskStatusSeeder extends Seeder
 
     public function run(): void
     {
-        $statuses = Yaml::parseFile(__DIR__ . '/../fixtures/taskStatuses.yaml');
+        $statuses = Yaml::parseFile(__DIR__ . '/../fixtures/taskStatuses.yml');
 
         TaskStatus::factory()
             ->count(count($statuses))
