@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Task;
-use App\Modules\Base\Resources\ErrorResource;
-use App\Modules\Base\Resources\SuccessResource;
 use App\Modules\Task\DTO\TaskDTO;
 use App\Modules\Task\Requests\StoreTaskRequest;
 use App\Modules\Task\Requests\TaskDeleteRequest;

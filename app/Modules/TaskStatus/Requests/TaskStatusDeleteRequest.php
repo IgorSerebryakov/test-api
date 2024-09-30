@@ -13,7 +13,7 @@ class TaskStatusDeleteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => ['required', 'int', Rule::exists('tasks', 'id')]
+            'id' => ['required', 'int', Rule::exists('task_statuses', 'id')]
         ];
     }
 

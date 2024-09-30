@@ -130,13 +130,17 @@ class TaskStatusController extends Controller
      *         @OA\JsonContent(ref="#/components/schemas/UpdateTaskStatusRequest")
      *     ),
      *     @OA\Response(
-     *          response="200",
-     *          description="Success",
-     *          @OA\JsonContent(ref="#/components/schemas/UpdateTaskStatusResponse")
+     *         response="200",
+     *         description="Success",
+     *         @OA\JsonContent(ref="#/components/schemas/UpdateTaskStatusResponse")
      *      ),
-     *      @OA\Response(
-     *          response="400",
-     *          description="Bad Request",
+     *     @OA\Response(
+     *         response="404",
+     *         description="Task not found",
+     *      ),
+     *     @OA\Response(
+     *         response="400",
+     *         description="Validation exception"
      *      ),
      *)
      */
