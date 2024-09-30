@@ -21,8 +21,12 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
 
 WORKDIR /var/www
 
-COPY . .
 RUN chown -R www-data:www-data /var/www \
-    && chmod -R 775 /var/www/storage
+    && chmod -R 777 /var/www/storage \
+
+RUN composer install --no-dev
+
+RUN chown -R www-data:www-data /var/www/vendor \
+    && chmod -R 777 /var/www/vendor
 
 
