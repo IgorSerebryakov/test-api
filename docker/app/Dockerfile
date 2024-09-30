@@ -1,4 +1,4 @@
-FROM php:8.2-fpm
+FROM php:8.2-fpm-alpine as build
 
 RUN apt-get update && apt-get install -y \
       apt-utils \
@@ -21,5 +21,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
 
 WORKDIR /var/www
 
+COPY . .
+RUN chown -R www-data:www-data /var/www \
+    && chmod -R 775 /var/www/storage
 
 
