@@ -66,7 +66,7 @@ class TaskController extends Controller
         $dto = new TaskDTO(
             id: null,
             name: $request->name,
-            status: $request->status,
+            status: null,
             userId: Auth::id()
         );
 

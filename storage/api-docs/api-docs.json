@@ -662,11 +662,6 @@
                         "description": "name",
                         "type": "string",
                         "example": "Do some job"
-                    },
-                    "status": {
-                        "description": "status",
-                        "type": "string",
-                        "example": "Completed"
                     }
                 },
                 "type": "object"

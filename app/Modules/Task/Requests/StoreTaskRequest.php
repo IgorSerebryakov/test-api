@@ -14,7 +14,6 @@ class StoreTaskRequest extends FormRequest
     {
         return [
             'name' => ['required', 'min:3', 'unique:tasks'],
-            'status' => ['required', Rule::exists('task_statuses', 'name')]
         ];
     }
 
@@ -22,7 +21,6 @@ class StoreTaskRequest extends FormRequest
     {
         return [
             'name.unique' => 'Task already exists',
-            'status.exists' => 'Status not found'
         ];
     }
 

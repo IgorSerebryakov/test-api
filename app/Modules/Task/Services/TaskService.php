@@ -13,9 +13,7 @@ class TaskService
         $task = Task::query()
             ->find($dto->id);
 
-        $statusId = TaskStatus::query()
-            ->where('name', $dto->status)
-            ->value('id');
+        $status = TaskStatus::query()->firstOrCreate(['name' => 'Created']);
 
         if (empty($task)) {
             $task = new Task();
@@ -23,7 +21,7 @@ class TaskService
         }
 
         $task->name = $dto->name;
-        $task->status_id = $statusId;
+        $task->status_id = $status->id;
         $task->save();
 
         return $task;

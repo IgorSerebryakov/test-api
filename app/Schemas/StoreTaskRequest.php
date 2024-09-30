@@ -18,12 +18,4 @@ class StoreTaskRequest
      *
      */
     public string $name;
-
-    /**
-     * @OA\Property(property="status", type="string", example="Completed", description="status")
-     *
-     * @var string $status;
-     *
-     */
-    public string $status;
 }
