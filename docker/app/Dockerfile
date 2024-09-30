@@ -21,12 +21,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
 
 WORKDIR /var/www
 
-RUN chown -R www-data:www-data /var/www \
-    && chmod -R 777 /var/www/storage \
-
-RUN composer install --no-dev
-
-RUN chown -R www-data:www-data /var/www/vendor \
-    && chmod -R 777 /var/www/vendor
+COPY ./docker/app/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
 
