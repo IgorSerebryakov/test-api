@@ -27,7 +27,7 @@ services:
         image: postgres:14
         restart: always
         volumes:
-            - ./tmp/db:/var/lib/postgresql/data
+            - db:/var/lib/postgresql/data
         environment:
             POSTGRES_DB: test_api
             POSTGRES_USER: root
@@ -45,3 +45,7 @@ services:
         depends_on:
             - app
         container_name: scheduler
+
+volumes:
+    db:
+        driver: local
