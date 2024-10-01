@@ -13,7 +13,11 @@ class TaskService
         $task = Task::query()
             ->find($dto->id);
 
-        $status = TaskStatus::query()->firstOrCreate(['name' => 'Created']);
+        $status = TaskStatus::query()
+            ->where('name', $dto->status)
+            ->first() ??
+            TaskStatus::query()
+                ->firstOrCreate(['name' => 'Created']);
 
         if (empty($task)) {
             $task = new Task();

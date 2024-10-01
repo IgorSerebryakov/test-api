@@ -31,13 +31,13 @@ class SendUncompletedTasks extends Command
     {
         $users = User::query()
             ->whereHas('tasks', function ($query) {
-                $query->where('status_id', 2);
+                $query->where('status_id', '!=', 3);
             })->get();
 
         foreach ($users as $user) {
             $uncompletedTasks = Task::query()
                 ->where('user_id', $user->id)
-                ->where('status_id', 2)
+                ->where('status_id', '!=', 3)
                 ->get();
 
             Mail::to($user->email)->send(new UncompletedTasks($uncompletedTasks));
