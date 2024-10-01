@@ -4,6 +4,7 @@ namespace App\Modules\Security\Services;
 
 use App\Models\User;
 use App\Modules\Security\DTO\RegisterDTO;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterService
 {
@@ -11,8 +12,9 @@ class RegisterService
     {
         $user = new User();
         $user->name = $registerDTO->name;
-        $user->password = $registerDTO->password;
+        $user->password = Hash::make($registerDTO->password);
         $user->email = $registerDTO->email;
+
         $user->save();
 
         return $user;
