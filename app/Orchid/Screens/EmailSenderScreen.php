@@ -72,9 +72,9 @@ class EmailSenderScreen extends Screen
 
     public function setCron(Request $request)
     {
-        Redis::command('set', [
-            'tasks_uncompleted_cron', $request->get('cron')
-        ]);
+//        Redis::command('set', [
+//            'tasks_uncompleted_cron', $request->get('cron')
+//        ]);
     }
 
     public function sendMessage()
