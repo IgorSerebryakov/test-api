@@ -2,17 +2,14 @@
 
 namespace App\Orchid\Screens;
 
-use App\Models\User;
+use Hamcrest\Core\Every;
 use Illuminate\Http\Request;
-use Illuminate\Mail\Message;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redis;
 use Orchid\Screen\Fields\Input;
-use Orchid\Screen\Fields\Quill;
-use Orchid\Screen\Fields\Relation;
+use Orchid\Screen\Fields\Select;
 use Orchid\Support\Facades\Layout;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Screen;
-use Orchid\Support\Facades\Alert;
 
 class EmailSenderScreen extends Screen
 {
@@ -24,7 +21,7 @@ class EmailSenderScreen extends Screen
     public function query(): iterable
     {
         return [
-            'subject' => date('F').' Campaign News',
+            'cron' => config('cron_expression'),
         ];
     }
 
@@ -46,9 +43,9 @@ class EmailSenderScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            Button::make('Send Message')
+            Button::make('Send to emails now')
                 ->icon('paper-plane')
-                ->method('sendMessage')
+                ->method('?')
         ];
     }
 
@@ -61,48 +58,27 @@ class EmailSenderScreen extends Screen
     {
         return [
             Layout::rows([
-                Input::make('subject')
-                    ->title('Subject')
-                    ->required()
-                    ->placeholder('Message subject line')
-                    ->help('Enter the subject line for your message'),
-
-                Relation::make('users.')
-                    ->title('Recipients')
-                    ->multiple()
-                    ->required()
-                    ->placeholder('Email addresses')
-                    ->help('Enter the users that you would like to send this message to.')
-                    ->fromModel(User::class,'name','email'),
-
-                Quill::make('content')
-                    ->title('Content')
-                    ->required()
-                    ->placeholder('Insert text here ...')
-                    ->help('Add the content for the message that you would like to send.')
-
+                Select::make('cron')
+                    ->options([
+                        '* * * * *' => 'Every minute',
+                        '*/2 * * * *' => 'Every 2 minutes',
+                        '*/30 * * * *' => 'Every 30 minutes',
+                        '0 * * * *' => 'Every hour'
+                    ])
+                ->title('Select cron')
             ])
         ];
     }
 
-    public function sendMessage(Request $request)
+    public function setCron(Request $request)
     {
-        $request->validate([
-            'subject' => 'required|min:6|max:50',
-            'users'   => 'required',
-            'content' => 'required|min:10'
+        Redis::command('set', [
+            'tasks_uncompleted_cron', $request->get('cron')
         ]);
+    }
 
-        Mail::raw($request->get('content'), function (Message $message) use ($request) {
-            $message->from('sample@email.com');
-            $message->subject($request->get('subject'));
+    public function sendMessage()
+    {
 
-            foreach ($request->get('users') as $email) {
-                $message->to($email);
-            }
-        });
-
-
-        Alert::info('Your email message has been sent successfully.');
     }
 }

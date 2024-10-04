@@ -3,17 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Orchid\Filters\Types\Like;
 use Orchid\Filters\Types\Where;
 use Orchid\Filters\Types\WhereDateStartEnd;
+use Orchid\Metrics\Chartable;
 use Orchid\Platform\Models\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use Chartable, HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
         'name',
@@ -67,6 +69,11 @@ class User extends Authenticatable implements JWTSubject
         'updated_at',
         'created_at',
     ];
+
+    public function tasks(): hasMany
+    {
+        return $this->hasMany(Task::class);
+    }
 
     public function getJWTIdentifier()
     {

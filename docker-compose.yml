@@ -1,28 +1,25 @@
 version: '3'
 
 services:
-    nginx:
-        image: nginx:latest
-        volumes:
-            - ./:/var/www/
-            - ./docker/nginx/conf.d/:/etc/nginx/conf.d
-        ports:
-            - "8876:80"
-        depends_on:
-            - app
-        container_name: app_nginx
-
     app:
         build:
+            args:
+                user: www
+                uid: 1000
             context: .
             dockerfile: docker/app/Dockerfile
-        image: php:8.2-fpm
+        image: base
+        restart: unless-stopped
+        working_dir: /var/www
         volumes:
             - ./:/var/www
         depends_on:
             - db
+            - redis
         container_name: app
         command: ["/usr/local/bin/entrypoint.sh"]
+        networks:
+            - backend
 
     db:
         image: postgres:14
@@ -36,17 +33,57 @@ services:
         ports:
             - '5433:5432'
         container_name: db
+        networks:
+            - backend
+
+    nginx:
+        image: nginx:alpine
+        container_name: app_nginx
+        restart: unless-stopped
+        volumes:
+            - ./:/var/www/
+            - ./docker/nginx/conf.d/:/etc/nginx/conf.d
+        ports:
+            - "8876:80"
+        networks:
+            - backend
+
+    redis:
+        image: redis:latest
+        restart: always
+        container_name: redis
+        ports:
+            - "${REDIS_PORT}:6379"
+        command: redis-server --save 20 1 --loglevel warning
+        volumes:
+            - cache:/data
+        networks:
+            - backend
 
     scheduler:
         build:
+            args:
+                user: www
+                uid: 1000
             context: .
             dockerfile: docker/scheduler/Dockerfile
+        image: scheduler
+        restart: unless-stopped
         volumes:
             - ./:/var/www
         depends_on:
             - app
         container_name: scheduler
+        networks:
+            - backend
+        command: ['cron', '-f']
+
+networks:
+    backend:
+        driver: bridge
 
 volumes:
     db:
+        driver: local
+    cache:
         driver: local

@@ -317,5 +317,4 @@ return [
      */
 
     'provider' => \App\Orchid\PlatformProvider::class,
-
 ];

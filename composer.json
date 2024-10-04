@@ -10,7 +10,9 @@
         "laravel/framework": "^11.9",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
+        "orchid/crud": "^4.3",
         "orchid/platform": "^14.36",
+        "predis/predis": "^2.2",
         "tymon/jwt-auth": "^2.1"
     },
     "require-dev": {

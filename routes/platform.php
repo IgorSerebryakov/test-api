@@ -15,6 +15,10 @@ use App\Orchid\Screens\Examples\ExampleTextEditorsScreen;
 use App\Orchid\Screens\PlatformScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
+use App\Orchid\Screens\Task\TaskEditScreen;
+use App\Orchid\Screens\Task\TaskListScreen;
+use App\Orchid\Screens\TaskStatus\TaskStatusEditScreen;
+use App\Orchid\Screens\TaskStatus\TaskStatusListScreen;
 use App\Orchid\Screens\User\UserEditScreen;
 use App\Orchid\Screens\User\UserListScreen;
 use App\Orchid\Screens\User\UserProfileScreen;
@@ -102,13 +106,43 @@ Route::screen('/examples/grid', ExampleGridScreen::class)->name('platform.exampl
 Route::screen('/examples/charts', ExampleChartsScreen::class)->name('platform.example.charts');
 Route::screen('/examples/cards', ExampleCardsScreen::class)->name('platform.example.cards');
 
-// Route::screen('idea', Idea::class, 'platform.screens.idea');
-
 Route::screen('email', EmailSenderScreen::class)
     ->name('platform.email')
     ->breadcrumbs(function (Trail $trail){
         return $trail
             ->parent('platform.index')
             ->push('Email sender');
+    });
+
+Route::screen('task-status/{task_status?}', TaskStatusEditScreen::class)
+    ->name('platform.task-status.edit')
+    ->breadcrumbs(function (Trail $trail) {
+        return $trail
+            ->parent('platform.task-status.list')
+            ->push('Create or update');
+    });
+
+Route::screen('task-statuses', TaskStatusListScreen::class)
+    ->name('platform.task-status.list')
+    ->breadcrumbs(function (Trail $trail) {
+        return $trail
+            ->parent('platform.index')
+            ->push('Statuses');
+    });
+
+Route::screen('task/{task?}', TaskEditScreen::class)
+    ->name('platform.task.edit')
+    ->breadcrumbs(function (Trail $trail) {
+        return $trail
+            ->parent('platform.task.list')
+            ->push('Create or update');
+    });
+
+Route::screen('tasks', TaskListScreen::class)
+    ->name('platform.task.list')
+    ->breadcrumbs(function (Trail $trail) {
+        return $trail
+            ->parent('platform.index')
+            ->push('Tasks');
     });
 
