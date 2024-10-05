@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Orchid\Screens\CronEditScreen;
 use App\Orchid\Screens\EmailSenderScreen;
 use App\Orchid\Screens\Examples\ExampleActionsScreen;
 use App\Orchid\Screens\Examples\ExampleCardsScreen;
@@ -108,10 +109,18 @@ Route::screen('/examples/cards', ExampleCardsScreen::class)->name('platform.exam
 
 Route::screen('email', EmailSenderScreen::class)
     ->name('platform.email')
-    ->breadcrumbs(function (Trail $trail){
+    ->breadcrumbs(function (Trail $trail) {
         return $trail
             ->parent('platform.index')
             ->push('Email sender');
+    });
+
+Route::screen('email/cron/add', CronEditScreen::class)
+    ->name('platform.cron.edit')
+    ->breadcrumbs(function (Trail $trail) {
+        return $trail
+            ->parent('platform.email')
+            ->push('Cron');
     });
 
 Route::screen('task-status/{task_status?}', TaskStatusEditScreen::class)

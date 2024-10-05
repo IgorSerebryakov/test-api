@@ -2,17 +2,24 @@
 
 namespace App\Orchid\Screens;
 
-use Hamcrest\Core\Every;
+use App\Orchid\Layouts\CronSaveLayout;
+use App\Orchid\Layouts\CronSetLayout;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redis;
-use Orchid\Screen\Fields\Input;
-use Orchid\Screen\Fields\Select;
+use Orchid\Support\Color;
+use Orchid\Support\Facades\Toast;
+use Predis\Client;
 use Orchid\Support\Facades\Layout;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Screen;
 
 class EmailSenderScreen extends Screen
 {
+    public Client $redis;
+
+    public function __construct()
+    {
+        $this->redis = new Client('tcp://predis:6379');
+    }
     /**
      * Fetch data to be displayed on the screen.
      *
@@ -20,9 +27,7 @@ class EmailSenderScreen extends Screen
      */
     public function query(): iterable
     {
-        return [
-            'cron' => config('cron_expression'),
-        ];
+        return [];
     }
 
     /**
@@ -32,7 +37,7 @@ class EmailSenderScreen extends Screen
      */
     public function name(): ?string
     {
-        return "Email sender";
+        return "Tasks-uncompleted email sender";
     }
 
     /**
@@ -43,9 +48,9 @@ class EmailSenderScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            Button::make('Send to emails now')
+            Button::make('Send messages now')
                 ->icon('paper-plane')
-                ->method('?')
+                ->method('sendEmails')
         ];
     }
 
@@ -57,28 +62,21 @@ class EmailSenderScreen extends Screen
     public function layout(): iterable
     {
         return [
-            Layout::rows([
-                Select::make('cron')
-                    ->options([
-                        '* * * * *' => 'Every minute',
-                        '*/2 * * * *' => 'Every 2 minutes',
-                        '*/30 * * * *' => 'Every 30 minutes',
-                        '0 * * * *' => 'Every hour'
-                    ])
-                ->title('Select cron')
-            ])
+            Layout::block(CronSetLayout::class)
+            ->title('Set Cron')
+            ->description('Update your frequency of sending messages.')
+            ->commands(
+                Button::make('Set')
+                ->type(Color::DARK)
+                ->icon('bs.check-circle')
+                ->method('setCron')
+            )
         ];
     }
 
     public function setCron(Request $request)
     {
-//        Redis::command('set', [
-//            'tasks_uncompleted_cron', $request->get('cron')
-//        ]);
-    }
-
-    public function sendMessage()
-    {
-
+        $this->redis->set('tasks_uncompleted_cron', $request->get('set_cron'));
+        Toast::info('Cron was saved in scheduler');
     }
 }

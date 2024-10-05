@@ -10,6 +10,9 @@ services:
             - "8876:80"
         depends_on:
             - app
+            - scheduler
+            - predis
+            - db
         container_name: app_nginx
 
     app:
@@ -47,6 +50,21 @@ services:
             - app
         container_name: scheduler
 
+    predis:
+        container_name: redis
+        image: redis:alpine
+        restart: always
+        ports:
+            - '${REDIS_PORT}:6379'
+        healthcheck:
+            test: ["CMD", "redis-cli", "ping"]
+            retries: 3
+            timeout: 5s
+        volumes:
+            - redis:/data
+
 volumes:
     db:
+        driver: local
+    redis:
         driver: local
