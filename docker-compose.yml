@@ -11,20 +11,29 @@ services:
         depends_on:
             - app
             - scheduler
-            - predis
+            - redis
             - db
         container_name: app_nginx
+        networks:
+            - base
 
     app:
         build:
-            context: .
+            args:
+                user: www
+                uid: 1000
+            context: ./
             dockerfile: docker/app/Dockerfile
-        image: php:8.2-fpm
+        image: base
+        container_name: app
+        restart: unless-stopped
+        working_dir: /var/www/
         volumes:
             - ./:/var/www
         depends_on:
             - db
-        container_name: app
+        networks:
+            - base
         command: ["/usr/local/bin/entrypoint.sh"]
 
     db:
@@ -33,24 +42,29 @@ services:
         volumes:
             - db:/var/lib/postgresql/data
         environment:
-            POSTGRES_DB: test_api
-            POSTGRES_USER: root
-            POSTGRES_PASSWORD: root
+            POSTGRES_DB: '${DB_DATABASE}'
+            POSTGRES_USER: '${DB_USERNAME}'
+            POSTGRES_PASSWORD: '${DB_PASSWORD}'
         ports:
             - '5433:5432'
         container_name: db
+        networks:
+            - base
 
     scheduler:
         build:
             context: .
             dockerfile: docker/scheduler/Dockerfile
+        image: scheduler
         volumes:
             - ./:/var/www
         depends_on:
             - app
         container_name: scheduler
+        networks:
+            - base
 
-    predis:
+    redis:
         container_name: redis
         image: redis:alpine
         restart: always
@@ -62,6 +76,12 @@ services:
             timeout: 5s
         volumes:
             - redis:/data
+        networks:
+            - base
+
+networks:
+    base:
+        driver: bridge
 
 volumes:
     db:

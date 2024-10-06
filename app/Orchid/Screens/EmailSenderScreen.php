@@ -2,24 +2,18 @@
 
 namespace App\Orchid\Screens;
 
-use App\Orchid\Layouts\CronSaveLayout;
 use App\Orchid\Layouts\CronSetLayout;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Orchid\Screen\Actions\Link;
 use Orchid\Support\Color;
 use Orchid\Support\Facades\Toast;
-use Predis\Client;
 use Orchid\Support\Facades\Layout;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Screen;
 
 class EmailSenderScreen extends Screen
 {
-    public Client $redis;
-
-    public function __construct()
-    {
-        $this->redis = new Client('tcp://predis:6379');
-    }
     /**
      * Fetch data to be displayed on the screen.
      *
@@ -48,9 +42,9 @@ class EmailSenderScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            Button::make('Send messages now')
-                ->icon('paper-plane')
-                ->method('sendEmails')
+            Link::make('Add cron')
+                ->icon('bs.plus-circle')
+                ->route('platform.cron.edit'),
         ];
     }
 
@@ -76,7 +70,7 @@ class EmailSenderScreen extends Screen
 
     public function setCron(Request $request)
     {
-        $this->redis->set('tasks_uncompleted_cron', $request->get('set_cron'));
+        Cache::set('tasks_uncompleted_cron', $request->get('set_cron'));
         Toast::info('Cron was saved in scheduler');
     }
 }

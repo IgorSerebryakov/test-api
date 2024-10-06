@@ -4,21 +4,15 @@ namespace App\Orchid\Screens;
 
 use App\Orchid\Layouts\CronSaveLayout;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Screen;
 use Orchid\Support\Color;
 use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
-use Predis\Client;
 
 class CronEditScreen extends Screen
 {
-    public Client $redis;
-
-    public function __construct()
-    {
-        $this->redis = new Client('tcp://predis:6379');
-    }
     /**
      * Fetch data to be displayed on the screen.
      *
@@ -36,7 +30,7 @@ class CronEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'CronEditScreen';
+        return 'Add cron';
     }
 
     /**
@@ -70,21 +64,18 @@ class CronEditScreen extends Screen
         ];
     }
 
-    public function saveCron(Request $request): void
+    public function saveCron(Request $request)
     {
         $newCronExpression = [
             $request->get('expression') => $request->get('name')
         ];
 
-        $cronExpressions = $this->redis->get('cron_expressions');
-        $cronExpressions = $cronExpressions ? json_decode($cronExpressions, true) : [];
+        $cronExpressions = Cache::get('tasks_cron') ?? [];
 
-        if (!in_array($newCronExpression, $cronExpressions)) {
-            $cronExpressions[] = $newCronExpression;
-        }
-
-        $this->redis->set('cron_expressions', json_encode($cronExpressions));
+        Cache::set('tasks_cron', array_merge($cronExpressions, $newCronExpression));
 
         Toast::info('Cron was added.');
+
+        return redirect()->route('platform.email');
     }
 }
