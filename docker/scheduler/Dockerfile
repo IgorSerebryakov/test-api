@@ -1,9 +1,10 @@
 FROM php:8.2-fpm
 
-RUN apt-get update && apt-get install -y cron &&\
-    docker-php-ext-install pdo_pgsql
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    cron
 
-RUN docker-php-ext-install pcntl
+RUN docker-php-ext-install pdo_pgsql pcntl
 
 RUN pecl install redis && docker-php-ext-enable redis
 

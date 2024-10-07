@@ -18,10 +18,10 @@ class CronSetLayout extends Rows
     {
         return [
             Select::make('set_cron')
-                ->options(Cache::get('tasks_cron'))
-                ->empty()
+                ->options(Cache::get('tasks_cron') ?? [])
                 ->required()
                 ->title('Select cron')
+                ->empty('No cron')
         ];
     }
 }
