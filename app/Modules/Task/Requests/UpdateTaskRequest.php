@@ -5,6 +5,7 @@ namespace App\Modules\Task\Requests;
 use App\Modules\Base\Resources\ValidationResource;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 

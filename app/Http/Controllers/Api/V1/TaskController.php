@@ -13,6 +13,7 @@ use App\Modules\Task\Resources\TaskCollection;
 use App\Modules\Task\Resources\TaskResource;
 use App\Modules\Task\Services\TaskService;
 use Illuminate\Support\Facades\Auth;
+use PHPUnit\Runner\ErrorException;
 
 class TaskController extends Controller
 {
@@ -70,7 +71,7 @@ class TaskController extends Controller
             userId: Auth::id()
         );
 
-        $task = $this->taskService->createOrUpdate($dto);
+        $task = $this->taskService->create($dto);
         return new TaskResource($task);
     }
 
@@ -109,6 +110,13 @@ class TaskController extends Controller
             ->where('id', $request->id)
             ->where('user_id', Auth::id())
             ->first();
+
+        if (!$task) {
+            return response()->json([
+                'type' => 'error',
+                'message' => 'This task belongs to another user'
+            ], 403);
+        }
 
         return new TaskResource($task);
     }
@@ -155,7 +163,15 @@ class TaskController extends Controller
             userId: Auth::id()
         );
 
-        $task = $this->taskService->createOrUpdate($dto);
+        try {
+            $task = $this->taskService->update($dto);
+        } catch (\Exception) {
+            return response()->json([
+                'type' => 'error',
+                'message' => 'This task belongs to another user'
+            ], 403);
+        }
+
         return new TaskResource($task);
     }
 
@@ -196,6 +212,13 @@ class TaskController extends Controller
             ->where('id', $request->id)
             ->where('user_id', Auth::id())
             ->first();
+
+        if (!$task) {
+            return response()->json([
+                'type' => 'error',
+                'message' => 'This task belongs to another user'
+            ], 403);
+        }
 
         $task->delete();
 

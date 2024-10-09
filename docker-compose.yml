@@ -1,5 +1,3 @@
-version: '3'
-
 services:
     nginx:
         image: nginx:latest
@@ -11,8 +9,6 @@ services:
         depends_on:
             - app
             - scheduler
-            - redis
-            - db
         container_name: app_nginx
         networks:
             - base
@@ -32,9 +28,9 @@ services:
             - ./:/var/www
         depends_on:
             - db
+            - redis
         networks:
             - base
-        command: ["/usr/local/bin/entrypoint.sh"]
 
     db:
         image: postgres:14

@@ -28,6 +28,7 @@ class UncompletedTasks extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
+            from: 'TestAPI@api.com',
             subject: 'Tasks From TestAPI',
         );
     }

@@ -29,7 +29,7 @@ class UpdateTaskStatusRequest extends FormRequest
     {
         return [
             'id.integer' => 'Value must be an integer',
-            'id.exists' => 'Task not found',
+            'id.exists' => 'Status not found',
             'name.unique' => 'Status already exists',
         ];
     }
