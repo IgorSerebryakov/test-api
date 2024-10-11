@@ -14,3 +14,9 @@ seed-Tasks:
 	docker exec -it app php artisan db:seed --class=TaskSeeder
 
 seed: refresh seed-TaskStatuses seed-Users seed-Tasks admin
+
+config-clear:
+	docker exec -it app php artisan config:clear
+
+test:
+	docker exec -it app php artisan test
