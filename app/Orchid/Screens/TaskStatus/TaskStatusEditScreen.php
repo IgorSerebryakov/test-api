@@ -2,6 +2,7 @@
 
 namespace App\Orchid\Screens\TaskStatus;
 
+use App\Models\Task;
 use App\Models\TaskStatus;
 use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Button;
@@ -18,10 +19,10 @@ class TaskStatusEditScreen extends Screen
      *
      * @return array
      */
-    public function query(TaskStatus $task_status): iterable
+    public function query(?TaskStatus $task_status): iterable
     {
         return [
-            'status' => $task_status
+            'status' => $task_status ?? new TaskStatus()
         ];
     }
 
@@ -79,6 +80,7 @@ class TaskStatusEditScreen extends Screen
 
     public function createOrUpdate(Request $request)
     {
+        $this->status ?? $this->status = new TaskStatus();
 
         $this->status->fill($request->get('task_status'))->save();
 

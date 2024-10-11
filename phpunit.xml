@@ -5,6 +5,12 @@
          colors="true"
          cacheResult="false"
 >
+    <coverage pathCoverage="true">
+        <report>
+            <clover outputFile="./coverage.xml"/>
+        </report>
+    </coverage>
+
     <testsuites>
         <testsuite name="Unit">
             <directory>tests/Unit</directory>

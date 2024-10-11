@@ -24,7 +24,6 @@ class TaskTest extends TestCase
     {
         parent::setUp();
 
-        // Явно вызываем сидер перед каждым тестом
         $this->seed(TaskSeeder::class);
     }
 

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /var/www/app/Modules</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../_css/bootstrap.min.css?v=11.0.6" rel="stylesheet" type="text/css">
+  <link href="../_css/nv.d3.min.css?v=11.0.6" rel="stylesheet" type="text/css">
+  <link href="../_css/style.css?v=11.0.6" rel="stylesheet" type="text/css">
+  <link href="../_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="../index.html">/var/www/app</a></li>
+         <li class="breadcrumb-item"><a href="index.html">Modules</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Base/Resources/ErrorResource.php.html#9">App\Modules\Base\Resources\ErrorResource</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Base/Resources/SuccessResource.php.html#8">App\Modules\Base\Resources\SuccessResource</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/DTO/AuthDTO.php.html#5">App\Modules\Security\DTO\AuthDTO</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/DTO/RegisterDTO.php.html#5">App\Modules\Security\DTO\RegisterDTO</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/DTO/UserDTO.php.html#8">App\Modules\Security\DTO\UserDTO</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/Requests/AuthRequest.php.html#7">App\Modules\Security\Requests\AuthRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/Requests/RegisterRequest.php.html#9">App\Modules\Security\Requests\RegisterRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/Resources/AuthResource.php.html#9">App\Modules\Security\Resources\AuthResource</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/Resources/AuthUserResource.php.html#8">App\Modules\Security\Resources\AuthUserResource</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/Resources/RegisterResource.php.html#8">App\Modules\Security\Resources\RegisterResource</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/Services/AuthService.php.html#10">App\Modules\Security\Services\AuthService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/Services/HashService.php.html#7">App\Modules\Security\Services\HashService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/Services/RegisterService.php.html#9">App\Modules\Security\Services\RegisterService</a></td><td class="text-right">0%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Security/DTO/UserDTO.php.html#8">App\Modules\Security\DTO\UserDTO</a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Security/Services/AuthService.php.html#10">App\Modules\Security\Services\AuthService</a></td><td class="text-right">20</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Base/Resources/ErrorResource.php.html#11"><abbr title="App\Modules\Base\Resources\ErrorResource::toArray">toArray</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Base/Resources/ErrorResource.php.html#18"><abbr title="App\Modules\Base\Resources\ErrorResource::withResponse">withResponse</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Base/Resources/SuccessResource.php.html#11"><abbr title="App\Modules\Base\Resources\SuccessResource::toArray">toArray</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/DTO/AuthDTO.php.html#7"><abbr title="App\Modules\Security\DTO\AuthDTO::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/DTO/RegisterDTO.php.html#7"><abbr title="App\Modules\Security\DTO\RegisterDTO::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/DTO/UserDTO.php.html#13"><abbr title="App\Modules\Security\DTO\UserDTO::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/DTO/UserDTO.php.html#19"><abbr title="App\Modules\Security\DTO\UserDTO::getUser">getUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/DTO/UserDTO.php.html#25"><abbr title="App\Modules\Security\DTO\UserDTO::getToken">getToken</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/Requests/AuthRequest.php.html#9"><abbr title="App\Modules\Security\Requests\AuthRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/Requests/RegisterRequest.php.html#11"><abbr title="App\Modules\Security\Requests\RegisterRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/Resources/AuthResource.php.html#11"><abbr title="App\Modules\Security\Resources\AuthResource::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/Resources/AuthResource.php.html#20"><abbr title="App\Modules\Security\Resources\AuthResource::toArray">toArray</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/Resources/AuthUserResource.php.html#10"><abbr title="App\Modules\Security\Resources\AuthUserResource::toArray">toArray</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/Resources/RegisterResource.php.html#10"><abbr title="App\Modules\Security\Resources\RegisterResource::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/Resources/RegisterResource.php.html#19"><abbr title="App\Modules\Security\Resources\RegisterResource::toArray">toArray</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/Services/AuthService.php.html#12"><abbr title="App\Modules\Security\Services\AuthService::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/Services/AuthService.php.html#16"><abbr title="App\Modules\Security\Services\AuthService::login">login</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/Services/HashService.php.html#9"><abbr title="App\Modules\Security\Services\HashService::isHashEquals">isHashEquals</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/Services/RegisterService.php.html#11"><abbr title="App\Modules\Security\Services\RegisterService::register">register</abbr></a></td><td class="text-right">0%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Security/Services/AuthService.php.html#16"><abbr title="App\Modules\Security\Services\AuthService::login">login</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Security/DTO/UserDTO.php.html#19"><abbr title="App\Modules\Security\DTO\UserDTO::getUser">getUser</abbr></a></td><td class="text-right">6</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 11.0.6</a> using <a href="https://www.php.net/" target="_top">PHP 8.2.24</a> and <a href="https://phpunit.de/">PHPUnit 11.3.6</a> at Thu Oct 10 7:59:17 UTC 2024.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="../_js/jquery.min.js?v=11.0.6" type="text/javascript"></script>
+  <script src="../_js/d3.min.js?v=11.0.6" type="text/javascript"></script>
+  <script src="../_js/nv.d3.min.js?v=11.0.6" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([13,0,0,0,0,0,0,0,0,0,0,17], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([19,0,0,0,0,0,0,0,0,0,0,44], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[0,2,"<a href=\"Base\/Resources\/ErrorResource.php.html#9\">App\\Modules\\Base\\Resources\\ErrorResource<\/a>"],[0,1,"<a href=\"Base\/Resources\/SuccessResource.php.html#8\">App\\Modules\\Base\\Resources\\SuccessResource<\/a>"],[100,3,"<a href=\"Base\/Resources\/ValidationResource.php.html#9\">App\\Modules\\Base\\Resources\\ValidationResource<\/a>"],[0,1,"<a href=\"Security\/DTO\/AuthDTO.php.html#5\">App\\Modules\\Security\\DTO\\AuthDTO<\/a>"],[0,1,"<a href=\"Security\/DTO\/RegisterDTO.php.html#5\">App\\Modules\\Security\\DTO\\RegisterDTO<\/a>"],[0,4,"<a href=\"Security\/DTO\/UserDTO.php.html#8\">App\\Modules\\Security\\DTO\\UserDTO<\/a>"],[0,1,"<a href=\"Security\/Requests\/AuthRequest.php.html#7\">App\\Modules\\Security\\Requests\\AuthRequest<\/a>"],[0,1,"<a href=\"Security\/Requests\/RegisterRequest.php.html#9\">App\\Modules\\Security\\Requests\\RegisterRequest<\/a>"],[0,2,"<a href=\"Security\/Resources\/AuthResource.php.html#9\">App\\Modules\\Security\\Resources\\AuthResource<\/a>"],[0,1,"<a href=\"Security\/Resources\/AuthUserResource.php.html#8\">App\\Modules\\Security\\Resources\\AuthUserResource<\/a>"],[0,2,"<a href=\"Security\/Resources\/RegisterResource.php.html#8\">App\\Modules\\Security\\Resources\\RegisterResource<\/a>"],[0,4,"<a href=\"Security\/Services\/AuthService.php.html#10\">App\\Modules\\Security\\Services\\AuthService<\/a>"],[0,1,"<a href=\"Security\/Services\/HashService.php.html#7\">App\\Modules\\Security\\Services\\HashService<\/a>"],[0,1,"<a href=\"Security\/Services\/RegisterService.php.html#9\">App\\Modules\\Security\\Services\\RegisterService<\/a>"],[100,1,"<a href=\"Task\/DTO\/TaskDTO.php.html#5\">App\\Modules\\Task\\DTO\\TaskDTO<\/a>"],[100,4,"<a href=\"Task\/Requests\/StoreTaskRequest.php.html#11\">App\\Modules\\Task\\Requests\\StoreTaskRequest<\/a>"],[100,5,"<a href=\"Task\/Requests\/TaskDeleteRequest.php.html#11\">App\\Modules\\Task\\Requests\\TaskDeleteRequest<\/a>"],[100,5,"<a href=\"Task\/Requests\/TaskShowRequest.php.html#11\">App\\Modules\\Task\\Requests\\TaskShowRequest<\/a>"],[100,6,"<a href=\"Task\/Requests\/UpdateTaskRequest.php.html#12\">App\\Modules\\Task\\Requests\\UpdateTaskRequest<\/a>"],[100,2,"<a href=\"Task\/Resources\/TaskCollection.php.html#8\">App\\Modules\\Task\\Resources\\TaskCollection<\/a>"],[100,1,"<a href=\"Task\/Resources\/TaskResource.php.html#8\">App\\Modules\\Task\\Resources\\TaskResource<\/a>"],[100,3,"<a href=\"Task\/Services\/TaskService.php.html#11\">App\\Modules\\Task\\Services\\TaskService<\/a>"],[100,1,"<a href=\"TaskStatus\/DTO\/TaskStatusDTO.php.html#5\">App\\Modules\\TaskStatus\\DTO\\TaskStatusDTO<\/a>"],[100,3,"<a href=\"TaskStatus\/Requests\/StoreTaskStatusRequest.php.html#11\">App\\Modules\\TaskStatus\\Requests\\StoreTaskStatusRequest<\/a>"],[100,5,"<a href=\"TaskStatus\/Requests\/TaskStatusDeleteRequest.php.html#11\">App\\Modules\\TaskStatus\\Requests\\TaskStatusDeleteRequest<\/a>"],[100,5,"<a href=\"TaskStatus\/Requests\/TaskStatusShowRequest.php.html#15\">App\\Modules\\TaskStatus\\Requests\\TaskStatusShowRequest<\/a>"],[100,6,"<a href=\"TaskStatus\/Requests\/UpdateTaskStatusRequest.php.html#11\">App\\Modules\\TaskStatus\\Requests\\UpdateTaskStatusRequest<\/a>"],[100,2,"<a href=\"TaskStatus\/Resources\/TaskStatusCollection.php.html#8\">App\\Modules\\TaskStatus\\Resources\\TaskStatusCollection<\/a>"],[100,1,"<a href=\"TaskStatus\/Resources\/TaskStatusResource.php.html#8\">App\\Modules\\TaskStatus\\Resources\\TaskStatusResource<\/a>"],[100,2,"<a href=\"TaskStatus\/Services\/TaskStatusService.php.html#8\">App\\Modules\\TaskStatus\\Services\\TaskStatusService<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[0,1,"<a href=\"Base\/Resources\/ErrorResource.php.html#11\">App\\Modules\\Base\\Resources\\ErrorResource::toArray<\/a>"],[0,1,"<a href=\"Base\/Resources\/ErrorResource.php.html#18\">App\\Modules\\Base\\Resources\\ErrorResource::withResponse<\/a>"],[0,1,"<a href=\"Base\/Resources\/SuccessResource.php.html#11\">App\\Modules\\Base\\Resources\\SuccessResource::toArray<\/a>"],[100,1,"<a href=\"Base\/Resources\/ValidationResource.php.html#13\">App\\Modules\\Base\\Resources\\ValidationResource::__construct<\/a>"],[100,1,"<a href=\"Base\/Resources\/ValidationResource.php.html#18\">App\\Modules\\Base\\Resources\\ValidationResource::toArray<\/a>"],[100,1,"<a href=\"Base\/Resources\/ValidationResource.php.html#26\">App\\Modules\\Base\\Resources\\ValidationResource::withResponse<\/a>"],[0,1,"<a href=\"Security\/DTO\/AuthDTO.php.html#7\">App\\Modules\\Security\\DTO\\AuthDTO::__construct<\/a>"],[0,1,"<a href=\"Security\/DTO\/RegisterDTO.php.html#7\">App\\Modules\\Security\\DTO\\RegisterDTO::__construct<\/a>"],[0,1,"<a href=\"Security\/DTO\/UserDTO.php.html#13\">App\\Modules\\Security\\DTO\\UserDTO::__construct<\/a>"],[0,2,"<a href=\"Security\/DTO\/UserDTO.php.html#19\">App\\Modules\\Security\\DTO\\UserDTO::getUser<\/a>"],[0,1,"<a href=\"Security\/DTO\/UserDTO.php.html#25\">App\\Modules\\Security\\DTO\\UserDTO::getToken<\/a>"],[0,1,"<a href=\"Security\/Requests\/AuthRequest.php.html#9\">App\\Modules\\Security\\Requests\\AuthRequest::rules<\/a>"],[0,1,"<a href=\"Security\/Requests\/RegisterRequest.php.html#11\">App\\Modules\\Security\\Requests\\RegisterRequest::rules<\/a>"],[0,1,"<a href=\"Security\/Resources\/AuthResource.php.html#11\">App\\Modules\\Security\\Resources\\AuthResource::__construct<\/a>"],[0,1,"<a href=\"Security\/Resources\/AuthResource.php.html#20\">App\\Modules\\Security\\Resources\\AuthResource::toArray<\/a>"],[0,1,"<a href=\"Security\/Resources\/AuthUserResource.php.html#10\">App\\Modules\\Security\\Resources\\AuthUserResource::toArray<\/a>"],[0,1,"<a href=\"Security\/Resources\/RegisterResource.php.html#10\">App\\Modules\\Security\\Resources\\RegisterResource::__construct<\/a>"],[0,1,"<a href=\"Security\/Resources\/RegisterResource.php.html#19\">App\\Modules\\Security\\Resources\\RegisterResource::toArray<\/a>"],[0,1,"<a href=\"Security\/Services\/AuthService.php.html#12\">App\\Modules\\Security\\Services\\AuthService::__construct<\/a>"],[0,3,"<a href=\"Security\/Services\/AuthService.php.html#16\">App\\Modules\\Security\\Services\\AuthService::login<\/a>"],[0,1,"<a href=\"Security\/Services\/HashService.php.html#9\">App\\Modules\\Security\\Services\\HashService::isHashEquals<\/a>"],[0,1,"<a href=\"Security\/Services\/RegisterService.php.html#11\">App\\Modules\\Security\\Services\\RegisterService::register<\/a>"],[100,1,"<a href=\"Task\/DTO\/TaskDTO.php.html#7\">App\\Modules\\Task\\DTO\\TaskDTO::__construct<\/a>"],[100,1,"<a href=\"Task\/Requests\/StoreTaskRequest.php.html#13\">App\\Modules\\Task\\Requests\\StoreTaskRequest::rules<\/a>"],[100,1,"<a href=\"Task\/Requests\/StoreTaskRequest.php.html#20\">App\\Modules\\Task\\Requests\\StoreTaskRequest::messages<\/a>"],[100,2,"<a href=\"Task\/Requests\/StoreTaskRequest.php.html#27\">App\\Modules\\Task\\Requests\\StoreTaskRequest::failedValidation<\/a>"],[100,1,"<a href=\"Task\/Requests\/TaskDeleteRequest.php.html#13\">App\\Modules\\Task\\Requests\\TaskDeleteRequest::rules<\/a>"],[100,1,"<a href=\"Task\/Requests\/TaskDeleteRequest.php.html#20\">App\\Modules\\Task\\Requests\\TaskDeleteRequest::prepareForValidation<\/a>"],[100,1,"<a href=\"Task\/Requests\/TaskDeleteRequest.php.html#27\">App\\Modules\\Task\\Requests\\TaskDeleteRequest::messages<\/a>"],[100,2,"<a href=\"Task\/Requests\/TaskDeleteRequest.php.html#35\">App\\Modules\\Task\\Requests\\TaskDeleteRequest::failedValidation<\/a>"],[100,1,"<a href=\"Task\/Requests\/TaskShowRequest.php.html#13\">App\\Modules\\Task\\Requests\\TaskShowRequest::rules<\/a>"],[100,1,"<a href=\"Task\/Requests\/TaskShowRequest.php.html#20\">App\\Modules\\Task\\Requests\\TaskShowRequest::prepareForValidation<\/a>"],[100,1,"<a href=\"Task\/Requests\/TaskShowRequest.php.html#27\">App\\Modules\\Task\\Requests\\TaskShowRequest::messages<\/a>"],[100,2,"<a href=\"Task\/Requests\/TaskShowRequest.php.html#35\">App\\Modules\\Task\\Requests\\TaskShowRequest::failedValidation<\/a>"],[100,1,"<a href=\"Task\/Requests\/UpdateTaskRequest.php.html#14\">App\\Modules\\Task\\Requests\\UpdateTaskRequest::rules<\/a>"],[100,1,"<a href=\"Task\/Requests\/UpdateTaskRequest.php.html#23\">App\\Modules\\Task\\Requests\\UpdateTaskRequest::prepareForValidation<\/a>"],[100,1,"<a href=\"Task\/Requests\/UpdateTaskRequest.php.html#30\">App\\Modules\\Task\\Requests\\UpdateTaskRequest::messages<\/a>"],[100,3,"<a href=\"Task\/Requests\/UpdateTaskRequest.php.html#40\">App\\Modules\\Task\\Requests\\UpdateTaskRequest::failedValidation<\/a>"],[100,1,"<a href=\"Task\/Resources\/TaskCollection.php.html#10\">App\\Modules\\Task\\Resources\\TaskCollection::toArray<\/a>"],[100,1,"<a href=\"Task\/Resources\/TaskCollection.php.html#21\">App\\Modules\\Task\\Resources\\TaskCollection::toResponse<\/a>"],[100,1,"<a href=\"Task\/Resources\/TaskResource.php.html#10\">App\\Modules\\Task\\Resources\\TaskResource::toArray<\/a>"],[100,1,"<a href=\"Task\/Services\/TaskService.php.html#43\">App\\Modules\\Task\\Services\\TaskService::create<\/a>"],[100,2,"<a href=\"Task\/Services\/TaskService.php.html#57\">App\\Modules\\Task\\Services\\TaskService::update<\/a>"],[100,1,"<a href=\"TaskStatus\/DTO\/TaskStatusDTO.php.html#7\">App\\Modules\\TaskStatus\\DTO\\TaskStatusDTO::__construct<\/a>"],[100,1,"<a href=\"TaskStatus\/Requests\/StoreTaskStatusRequest.php.html#13\">App\\Modules\\TaskStatus\\Requests\\StoreTaskStatusRequest::rules<\/a>"],[100,1,"<a href=\"TaskStatus\/Requests\/StoreTaskStatusRequest.php.html#20\">App\\Modules\\TaskStatus\\Requests\\StoreTaskStatusRequest::messages<\/a>"],[100,1,"<a href=\"TaskStatus\/Requests\/StoreTaskStatusRequest.php.html#27\">App\\Modules\\TaskStatus\\Requests\\StoreTaskStatusRequest::failedValidation<\/a>"],[100,1,"<a href=\"TaskStatus\/Requests\/TaskStatusDeleteRequest.php.html#13\">App\\Modules\\TaskStatus\\Requests\\TaskStatusDeleteRequest::rules<\/a>"],[100,1,"<a href=\"TaskStatus\/Requests\/TaskStatusDeleteRequest.php.html#20\">App\\Modules\\TaskStatus\\Requests\\TaskStatusDeleteRequest::prepareForValidation<\/a>"],[100,1,"<a href=\"TaskStatus\/Requests\/TaskStatusDeleteRequest.php.html#27\">App\\Modules\\TaskStatus\\Requests\\TaskStatusDeleteRequest::messages<\/a>"],[100,2,"<a href=\"TaskStatus\/Requests\/TaskStatusDeleteRequest.php.html#35\">App\\Modules\\TaskStatus\\Requests\\TaskStatusDeleteRequest::failedValidation<\/a>"],[100,1,"<a href=\"TaskStatus\/Requests\/TaskStatusShowRequest.php.html#22\">App\\Modules\\TaskStatus\\Requests\\TaskStatusShowRequest::rules<\/a>"],[100,1,"<a href=\"TaskStatus\/Requests\/TaskStatusShowRequest.php.html#29\">App\\Modules\\TaskStatus\\Requests\\TaskStatusShowRequest::prepareForValidation<\/a>"],[100,1,"<a href=\"TaskStatus\/Requests\/TaskStatusShowRequest.php.html#36\">App\\Modules\\TaskStatus\\Requests\\TaskStatusShowRequest::messages<\/a>"],[100,2,"<a href=\"TaskStatus\/Requests\/TaskStatusShowRequest.php.html#44\">App\\Modules\\TaskStatus\\Requests\\TaskStatusShowRequest::failedValidation<\/a>"],[100,1,"<a href=\"TaskStatus\/Requests\/UpdateTaskStatusRequest.php.html#13\">App\\Modules\\TaskStatus\\Requests\\UpdateTaskStatusRequest::rules<\/a>"],[100,1,"<a href=\"TaskStatus\/Requests\/UpdateTaskStatusRequest.php.html#21\">App\\Modules\\TaskStatus\\Requests\\UpdateTaskStatusRequest::prepareForValidation<\/a>"],[100,1,"<a href=\"TaskStatus\/Requests\/UpdateTaskStatusRequest.php.html#28\">App\\Modules\\TaskStatus\\Requests\\UpdateTaskStatusRequest::messages<\/a>"],[100,3,"<a href=\"TaskStatus\/Requests\/UpdateTaskStatusRequest.php.html#37\">App\\Modules\\TaskStatus\\Requests\\UpdateTaskStatusRequest::failedValidation<\/a>"],[100,1,"<a href=\"TaskStatus\/Resources\/TaskStatusCollection.php.html#15\">App\\Modules\\TaskStatus\\Resources\\TaskStatusCollection::toArray<\/a>"],[100,1,"<a href=\"TaskStatus\/Resources\/TaskStatusCollection.php.html#25\">App\\Modules\\TaskStatus\\Resources\\TaskStatusCollection::toResponse<\/a>"],[100,1,"<a href=\"TaskStatus\/Resources\/TaskStatusResource.php.html#12\">App\\Modules\\TaskStatus\\Resources\\TaskStatusResource::toArray<\/a>"],[100,2,"<a href=\"TaskStatus\/Services\/TaskStatusService.php.html#10\">App\\Modules\\TaskStatus\\Services\\TaskStatusService::createOrUpdate<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

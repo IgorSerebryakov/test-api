@@ -15,7 +15,9 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-install pdo_pgsql bcmath gd zip pcntl
 
-RUN pecl install redis && docker-php-ext-enable redis
+RUN pecl install redis xdebug
+
+RUN docker-php-ext-enable redis xdebug
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN curl -sS https://getcomposer.org/installer | php -- \
@@ -27,6 +29,8 @@ RUN mkdir -p /home/$user/.composer && \
     chown -R $user:$user /home/$user
 
 WORKDIR /var/www
+
+COPY ./docker/app/php.ini /usr/local/etc/php/conf.d/php.ini
 
 COPY ./docker/app/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
