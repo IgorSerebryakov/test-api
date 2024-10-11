@@ -31,6 +31,7 @@ RUN mkdir -p /home/$user/.composer && \
 WORKDIR /var/www
 
 COPY ./docker/app/php.ini /usr/local/etc/php/conf.d/php.ini
+COPY ./docker/app/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 COPY ./docker/app/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh

@@ -2,10 +2,13 @@
 
 namespace Tests\Feature;
 
+use App\Models\TaskStatus;
 use App\Models\User;
+use Database\Seeders\DatabaseSeeder;
 use Database\Seeders\TaskSeeder;
 use Database\Seeders\TaskStatusSeeder;
 use Database\Seeders\UserSeeder;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Auth;
@@ -16,16 +19,9 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class TaskTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseMigrations;
 
-    protected $seeder = TaskSeeder::class;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->seed(TaskSeeder::class);
-    }
+    protected $seed = true;
 
     public function testNotAuthHasNoAccess(): void
     {
@@ -73,6 +69,7 @@ class TaskTest extends TestCase
         $user = User::query()
             ->where('id', 6)
             ->first();
+
 
         $token = JWTAuth::fromUser($user);
 

@@ -4,6 +4,7 @@ namespace App\Orchid\Screens\TaskStatus;
 
 use App\Models\Task;
 use App\Models\TaskStatus;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\Input;
@@ -14,44 +15,31 @@ use Orchid\Support\Facades\Layout;
 class TaskStatusEditScreen extends Screen
 {
     public $status;
-    /**
-     * Fetch data to be displayed on the screen.
-     *
-     * @return array
-     */
-    public function query(?TaskStatus $task_status): iterable
+
+
+    public function query(TaskStatus $task_status): iterable
     {
         return [
-            'status' => $task_status ?? new TaskStatus()
+            'status' => $task_status
         ];
     }
 
-    /**
-     * The name of the screen displayed in the header.
-     *
-     * @return string|null
-     */
     public function name(): ?string
     {
         return $this->status->exists ? 'Edit task status' : 'Creating a new task status';
     }
 
-    /**
-     * The screen's action buttons.
-     *
-     * @return \Orchid\Screen\Action[]
-     */
     public function commandBar(): iterable
     {
         return [
-           Button::make('Create task status')
+           Button::make('Create')
             ->icon('pencil')
-            ->method('createOrUpdate')
+            ->method('create')
             ->canSee(!$this->status->exists),
 
            Button::make('Update')
            ->icon('note')
-           ->method('createOrUpdate')
+           ->method('update')
            ->canSee($this->status->exists),
 
            Button::make('Remove')
@@ -61,16 +49,11 @@ class TaskStatusEditScreen extends Screen
         ];
     }
 
-    /**
-     * The screen's layout elements.
-     *
-     * @return \Orchid\Screen\Layout[]|string[]
-     */
     public function layout(): iterable
     {
         return [
             Layout::rows([
-                Input::make('task_status.name')
+                Input::make('status.name')
                 ->title('name')
                 ->placeholder('Name of task status')
                 ->required()
@@ -78,10 +61,8 @@ class TaskStatusEditScreen extends Screen
         ];
     }
 
-    public function createOrUpdate(Request $request)
+    public function create(Request $request): RedirectResponse
     {
-        $this->status ?? $this->status = new TaskStatus();
-
         $this->status->fill($request->get('task_status'))->save();
 
         Alert::info('You have successfully created a task status');
@@ -89,9 +70,18 @@ class TaskStatusEditScreen extends Screen
         return redirect()->route('platform.task-status.list');
     }
 
-    public function remove()
+    public function update(Request $request): RedirectResponse
     {
-        $this->status->delete();
+        $this->status->fill($request->get('task_status'))->save();
+
+        Alert::info('You have successfully updated a task status');
+
+        return redirect()->route('platform.task-status.list');
+    }
+
+    public function delete(TaskStatus $status): RedirectResponse
+    {
+        $status->delete();
 
         Alert::info('You have successfully deleted the post');
 

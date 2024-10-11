@@ -7,15 +7,15 @@ use App\Models\Task;
 use App\Models\User;
 use Database\Seeders\TaskStatusSeeder;
 use Illuminate\Database\Eloquent\Factories\Sequence;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class SendUncompletedTasksTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $seeder = TaskStatusSeeder::class;
 
     public function testUsersReceiveEmailsWithUncompletedTasks(): void
@@ -59,7 +59,7 @@ class SendUncompletedTasksTest extends TestCase
     {
         Mail::fake();
 
-        $users = User::factory()
+        User::factory()
             ->count(2)
             ->create();
 

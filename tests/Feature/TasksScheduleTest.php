@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 
+use Database\Seeders\TaskStatusSeeder;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -15,7 +16,7 @@ use Tests\TestCase;
 
 class TasksScheduleTest extends TestCase
 {
-    use RefreshDatabase;
+    protected $seeder = TaskStatusSeeder::class;
 
     public function testScheduleCronEqualsCronByCache()
     {

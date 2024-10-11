@@ -8,8 +8,8 @@ php artisan key:generate
 
 php artisan config:clear
 php artisan cache:clear
-php artisan config:cache
 
+php artisan migrate --env=testing
 php artisan migrate
 
 php-fpm

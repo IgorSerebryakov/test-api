@@ -14,11 +14,6 @@ class TaskSeeder extends Seeder
 {
     public function run(): void
     {
-        $this->call([
-            UserSeeder::class,
-            TaskStatusSeeder::class
-        ]);
-
         $tasks = Yaml::parseFile(__DIR__ . '/../fixtures/tasks.yml');
 
         $user = User::factory()->create([

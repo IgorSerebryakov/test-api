@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\User;
+use Database\Seeders\DatabaseSeeder;
 use Database\Seeders\TaskStatusSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
@@ -11,12 +12,12 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class TaskStatusTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected $seeder = TaskStatusSeeder::class;
 
     public function testNotAuthHasNoAccess(): void
     {
+        $this->seed(DatabaseSeeder::class);
+
         $responseGetAll = $this->getJson('/api/v1/auth/task-statuses');
         $responseGetOne = $this->getJson('/api/v1/auth/task-statuses/1');
         $responseCreate = $this->postJson('/api/v1/auth/task-statuses');

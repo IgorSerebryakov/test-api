@@ -15,7 +15,6 @@ use Tests\TestCase;
 
 class TaskStatusListScreenTest extends TestCase
 {
-    use RefreshDatabase;
     use ScreenTesting;
 
     protected $seeder = TaskStatusSeeder::class;
