@@ -1,6 +1,6 @@
 #!/bin/bash
 
-composer install --no-interaction --prefer-dist --optimize-autoloader
+composer install
 
 cp .env.example .env
 
