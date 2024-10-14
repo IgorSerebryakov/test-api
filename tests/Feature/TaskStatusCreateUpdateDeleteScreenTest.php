@@ -14,8 +14,6 @@ use Tests\TestCase;
 class TaskStatusCreateUpdateDeleteScreenTest extends TaskStatusTestCase
 {
     use ScreenTesting;
-
-    protected $seeder = TaskStatusSeeder::class;
     public function testTaskStatusCreateScreen(): void
     {
         $user = User::factory()->admin()->create();

@@ -15,8 +15,6 @@ class TaskStatusListScreenTest extends TaskStatusTestCase
 {
     use ScreenTesting;
 
-    protected $seeder = TaskStatusSeeder::class;
-
     public function testTaskStatusListScreen(): void
     {
         $user = User::factory()->admin()->create();

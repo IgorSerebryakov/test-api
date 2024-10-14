@@ -14,8 +14,6 @@ class TaskEditScreenTest extends TaskTestCase
 {
     use ScreenTesting;
 
-    protected $seed = true;
-
     public function testTaskEditScreen(): void
     {
         $user = User::factory()->admin()->create();

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\TaskStatus;
 use App\Models\User;
 use Database\Seeders\DatabaseSeeder;
 use Database\Seeders\TaskStatusSeeder;
@@ -12,8 +13,6 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class TaskStatusTest extends TaskStatusTestCase
 {
-    protected $seeder = TaskStatusSeeder::class;
-
     public function testNotAuthHasNoAccess(): void
     {
         $this->seed(DatabaseSeeder::class);

@@ -16,8 +16,6 @@ class TaskListScreenTest extends TaskTestCase
 {
     use ScreenTesting;
 
-    protected $seed = true;
-
     public function testTaskListScreen(): void
     {
         $user = User::factory()

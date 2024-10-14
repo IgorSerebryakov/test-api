@@ -14,8 +14,6 @@ class TaskUpdateScreenTest extends TaskTestCase
 {
     use ScreenTesting;
 
-    protected $seed = true;
-
     public function testUpdate(): void
     {
         $task = Task::query()
