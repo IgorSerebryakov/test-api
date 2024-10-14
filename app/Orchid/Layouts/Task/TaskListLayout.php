@@ -3,6 +3,7 @@
 namespace App\Orchid\Layouts\Task;
 
 use App\Models\Task;
+use Carbon\Carbon;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Layouts\Table;
 use Orchid\Screen\TD;
@@ -33,8 +34,15 @@ class TaskListLayout extends Table
                     ->route('platform.task.edit', $task);
             }),
 
-            TD::make('created_at', 'Created'),
+            TD::make('created_at', 'Created')
+                ->render(function (Task $task) {
+                    return $task->created_at;
+                }),
+
             TD::make('updated_at', 'Last edit')
+                ->render(function (Task $task) {
+                    return $task->updated_at;
+                })
         ];
     }
 }

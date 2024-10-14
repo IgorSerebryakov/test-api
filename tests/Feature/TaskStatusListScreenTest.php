@@ -6,9 +6,6 @@ use App\Models\TaskStatus;
 use App\Models\User;
 use App\Orchid\Screens\TaskStatus\TaskStatusListScreen;
 use Database\Seeders\TaskStatusSeeder;
-use Database\Seeders\UserSeeder;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Auth;
 use Orchid\Screen\Actions\Link;
 use Orchid\Support\Testing\ScreenTesting;
 use Tests\TestCase;
@@ -38,8 +35,10 @@ class TaskStatusListScreenTest extends TestCase
 
         $response = $this->get(route('platform.task-status.edit'));
 
-        $response->assertOk();
-        $response->assertSee('Creating a new task');
+        $response
+            ->assertOk()
+            ->assertSee('Creating a new task');
+
     }
 
     public function testCommandBarCreateLink(): void

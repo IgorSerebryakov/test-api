@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->timestamps();
             $table->bigInteger('status_id');
             $table->foreign('status_id')->references('id')->on('task_statuses');
             $table->bigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->timestamps();
         });
     }
 
