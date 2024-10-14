@@ -5,12 +5,12 @@ namespace Tests\Feature;
 use App\Models\User;
 use Database\Seeders\DatabaseSeeder;
 use Database\Seeders\TaskStatusSeeder;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
+use Tests\TaskStatusTestCase;
 use Tests\TestCase;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-class TaskStatusTest extends TestCase
+class TaskStatusTest extends TaskStatusTestCase
 {
     protected $seeder = TaskStatusSeeder::class;
 

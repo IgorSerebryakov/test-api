@@ -59,7 +59,7 @@
         "test": [
             "@pre-test",
             "php artisan migrate --env=testing",
-            "php artisan test"
+            "php artisan test --env=testing"
         ]
     },
     "extra": {

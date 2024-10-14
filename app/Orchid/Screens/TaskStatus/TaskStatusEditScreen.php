@@ -79,9 +79,9 @@ class TaskStatusEditScreen extends Screen
         return redirect()->route('platform.task-status.list');
     }
 
-    public function delete(TaskStatus $status): RedirectResponse
+    public function delete(): RedirectResponse
     {
-        $status->delete();
+        $this->status->delete();
 
         Alert::info('You have successfully deleted the post');
 

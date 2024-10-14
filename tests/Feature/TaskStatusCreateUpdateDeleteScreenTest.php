@@ -6,14 +6,12 @@ use App\Models\TaskStatus;
 use App\Models\User;
 use App\Orchid\Screens\TaskStatus\TaskStatusEditScreen;
 use Database\Seeders\TaskStatusSeeder;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Orchid\Support\Testing\ScreenTesting;
+use Tests\TaskStatusTestCase;
 use Tests\TestCase;
 
-class TaskStatusCreateUpdateDeleteScreenTest extends TestCase
+class TaskStatusCreateUpdateDeleteScreenTest extends TaskStatusTestCase
 {
     use ScreenTesting;
 
@@ -33,7 +31,7 @@ class TaskStatusCreateUpdateDeleteScreenTest extends TestCase
             ->assertSee('name');
     }
 
-    public function testCreateNewTaskStatus(): void
+    public function testCreate(): void
     {
         $data = [
             'task_status' => [
@@ -54,7 +52,7 @@ class TaskStatusCreateUpdateDeleteScreenTest extends TestCase
         ]);
     }
 
-    public function testUpdateTaskStatus(): void
+    public function testUpdate(): void
     {
         $status = TaskStatus::query()->where('id', 1)->first();
 
@@ -82,13 +80,14 @@ class TaskStatusCreateUpdateDeleteScreenTest extends TestCase
             ]);
     }
 
-    public function testDeleteTaskStatus(): void
+    public function testDelete(): void
     {
         $status = TaskStatus::query()->where('id', 1)->first();
 
         $screen = new TaskStatusEditScreen();
+        $screen->status = $status;
 
-        $response = $screen->delete($status);
+        $response = $screen->delete();
 
         $this->assertEquals(302, $response->status());
 

@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterService
 {
-    public function register(RegisterDTO $registerDTO): User
+    public function register(RegisterDTO $dto): User
     {
         $user = new User();
-        $user->name = $registerDTO->name;
-        $user->password = Hash::make($registerDTO->password);
-        $user->email = $registerDTO->email;
+        $user->name = $dto->name;
+        $user->password = Hash::make($dto->password);
+        $user->email = $dto->email;
 
         $user->save();
 

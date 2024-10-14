@@ -12,12 +12,11 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Tests\TaskStatusTestCase;
 use Tests\TestCase;
 
-class SendUncompletedTasksTest extends TestCase
+class SendUncompletedTasksTest extends TaskStatusTestCase
 {
-    protected $seeder = TaskStatusSeeder::class;
-
     public function testUsersReceiveEmailsWithUncompletedTasks(): void
     {
         Mail::fake();

@@ -8,9 +8,10 @@ use App\Orchid\Screens\TaskStatus\TaskStatusListScreen;
 use Database\Seeders\TaskStatusSeeder;
 use Orchid\Screen\Actions\Link;
 use Orchid\Support\Testing\ScreenTesting;
+use Tests\TaskStatusTestCase;
 use Tests\TestCase;
 
-class TaskStatusListScreenTest extends TestCase
+class TaskStatusListScreenTest extends TaskStatusTestCase
 {
     use ScreenTesting;
 

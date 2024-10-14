@@ -46,19 +46,19 @@ class TaskEditScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            Button::make('Create task')
+            Button::make('Create')
             ->icon('pencil')
-            ->method('createOrUpdate')
+            ->method('create')
             ->canSee(!$this->task->exists),
 
             Button::make('Update')
             ->icon('note')
-            ->method('createOrUpdate')
+            ->method('update')
             ->canSee($this->task->exists),
 
             Button::make('Remove')
             ->icon('trash')
-            ->method('remove')
+            ->method('delete')
             ->canSee($this->task->exists)
         ];
     }
@@ -88,7 +88,7 @@ class TaskEditScreen extends Screen
         ];
     }
 
-    public function createOrUpdate(Request $request)
+    public function create(Request $request)
     {
         $this->task->fill($request->get('task'))->save();
 
@@ -97,7 +97,16 @@ class TaskEditScreen extends Screen
         return redirect()->route('platform.task.list');
     }
 
-    public function remove()
+    public function update(Request $request)
+    {
+        $this->task->fill($request->get('task'))->save();
+
+        Alert::info('You have successfully updated a task');
+
+        return redirect()->route('platform.task.list');
+    }
+
+    public function delete()
     {
         $this->task->delete();
 

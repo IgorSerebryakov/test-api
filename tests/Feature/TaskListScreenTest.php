@@ -5,16 +5,16 @@ namespace Tests\Feature;
 use App\Models\Task;
 use App\Models\User;
 use App\Orchid\Screens\Task\TaskListScreen;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Orchid\Screen\Actions\Link;
 use Orchid\Support\Testing\ScreenTesting;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Tests\TaskTestCase;
 use Tests\TestCase;
 
-class TaskListScreenTest extends TestCase
+class TaskListScreenTest extends TaskTestCase
 {
     use ScreenTesting;
-    use RefreshDatabase;
 
     protected $seed = true;
 
@@ -50,7 +50,7 @@ class TaskListScreenTest extends TestCase
         $response
             ->assertOk()
             ->assertSee('Creating a new task')
-            ->assertSee('Create task')
+            ->assertSee('Create')
             ->assertSee('Title')
             ->assertSee('Author')
             ->assertSee('Status');

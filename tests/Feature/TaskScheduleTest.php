@@ -12,12 +12,11 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
 
 use Illuminate\Support\Facades\Event;
+use Tests\TaskStatusTestCase;
 use Tests\TestCase;
 
-class TaskScheduleTest extends TestCase
+class TaskScheduleTest extends TaskStatusTestCase
 {
-    protected $seeder = TaskStatusSeeder::class;
-
     public function testScheduleCronEqualsCronByCache()
     {
         Cache::shouldReceive('get')

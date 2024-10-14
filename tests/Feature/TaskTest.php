@@ -2,27 +2,15 @@
 
 namespace Tests\Feature;
 
-use App\Models\TaskStatus;
 use App\Models\User;
-use Database\Seeders\DatabaseSeeder;
-use Database\Seeders\TaskSeeder;
-use Database\Seeders\TaskStatusSeeder;
-use Database\Seeders\UserSeeder;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Testing\Fluent\AssertableJson;
+use Tests\TaskTestCase;
 use Tests\TestCase;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-class TaskTest extends TestCase
+class TaskTest extends TaskTestCase
 {
-    use DatabaseMigrations;
-
-    protected $seed = true;
-
     public function testNotAuthHasNoAccess(): void
     {
         $responseGetAll = $this->getJson('/api/v1/auth/tasks');
