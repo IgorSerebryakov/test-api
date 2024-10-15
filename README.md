@@ -4,7 +4,7 @@ cp .env.example .env
 
 docker-compose up -d --build
 
-make seed
+make seed 
 
 # Tests
 
@@ -22,6 +22,8 @@ Login: admin@admin.com
 Pass: admin
 
 # Graylog
+
+http://localhost:9000
 
 Login: admin
 Pass: admin
