@@ -11,12 +11,12 @@ class ErrorResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'errors' => $this->getMessage()
+            'error' => $this->getMessage()
         ];
     }
 
     public function withResponse(Request $request, JsonResponse $response)
     {
-        $response->setStatusCode('422');
+        $response->setStatusCode('400');
     }
 }

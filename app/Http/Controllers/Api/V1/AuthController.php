@@ -9,6 +9,8 @@ use App\Modules\Security\DTO\AuthDTO;
 use App\Modules\Security\Requests\AuthRequest;
 use App\Modules\Security\Resources\AuthResource;
 use App\Modules\Security\Services\AuthService;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 
 class AuthController extends Controller
@@ -63,8 +65,11 @@ class AuthController extends Controller
      *     security={{ "bearerAuth": {} }},
      *     @OA\Response(
      *         response="200",
-     *         description="Success"
-     *     ),
+     *         description="Success",
+     *         @OA\MediaType(
+     *               mediaType="application/json"
+     *          )
+     *     )
      *)
      */
     public function logout()
@@ -108,6 +113,14 @@ class AuthController extends Controller
      */
     public function me()
     {
+        try {
+            if (! JWTAuth::parseToken()->authenticate()) {
+                return response()->json(['error' => 'User not found'], 404);
+            }
+        } catch (JWTException) {
+            return response()->json(['error' => 'Invalid token'], 400);
+        }
+
         return response()->json(auth()->user());
     }
 }

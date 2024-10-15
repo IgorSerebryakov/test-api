@@ -20,13 +20,13 @@ class AuthService
         })->first();
 
         if (!$user) {
-            throw new \DomainException('Login or password is incorrect.');
+            throw new \DomainException('User with that login is not found!');
         }
 
         $isRightPassword = $this->hashService->isHashEquals($user->password, $authDTO->password);
 
         if (!$isRightPassword) {
-            throw new \DomainException('Login or password is incorrect.');
+            throw new \DomainException('Password is incorrect!');
         }
 
         $token = auth()->login($user);

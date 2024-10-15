@@ -55,12 +55,16 @@
         ],
         "pre-test": [
             "php artisan config:clear",
-            "php artisan cache:clear"
+            "php artisan cache:clear",
+            "php artisan route:clear",
+            "php artisan view:clear"
         ],
         "test": [
             "@pre-test",
             "php artisan migrate --env=testing",
-            "php artisan test --parallel --env=testing"
+            "php artisan test --parallel --env=testing",
+            "php artisan route:cache",
+            "php artisan config:cache"
         ]
     },
     "extra": {
