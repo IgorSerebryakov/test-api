@@ -19,4 +19,4 @@ config-clear:
 	docker exec -it app php artisan config:clear
 
 test:
-	docker exec -it app php artisan test
+	docker exec -it app composer test

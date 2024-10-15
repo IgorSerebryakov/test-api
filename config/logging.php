@@ -18,7 +18,7 @@ return [
     |
     */
 
-    'default' => env('LOG_CHANNEL', 'stack'),
+    'default' => env('LOG_CHANNEL', 'graylog'),
 
     /*
     |--------------------------------------------------------------------------
@@ -125,6 +125,20 @@ return [
 
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
+        ],
+
+        'graylog' => [
+            'driver' => 'graylog',
+            'level' => 'notice',
+            'handler_with' => [
+                'transport' => env('LOG_GRAYLOG_TRANSPORT', 'udp'),
+                'host' => env('LOG_GRAYLOG_HOST', 'localhost'),
+                'port' => env('LOG_GRAYLOG_PORT', 12201),
+                'path' => env('LOG_GRAYLOG_PATH', '/gelf'),
+                'extra' => [
+                    //
+                ]
+            ],
         ],
 
     ],

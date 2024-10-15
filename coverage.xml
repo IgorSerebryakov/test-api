@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1728982535">
-  <project timestamp="1728982535">
+<coverage generated="1728991929">
+  <project timestamp="1728991929">
     <package name="App\Console\Commands">
       <file name="/var/www/app/Console/Commands/SendUncompletedTasks.php">
         <class name="App\Console\Commands\SendUncompletedTasks" namespace="App\Console\Commands">
