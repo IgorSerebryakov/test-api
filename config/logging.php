@@ -129,7 +129,7 @@ return [
 
         'graylog' => [
             'driver' => 'graylog',
-            'level' => 'notice',
+            'level' => 'debug',
             'handler_with' => [
                 'transport' => env('LOG_GRAYLOG_TRANSPORT', 'udp'),
                 'host' => env('LOG_GRAYLOG_HOST', 'localhost'),

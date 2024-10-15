@@ -9,8 +9,8 @@ Route::get('/', function () {
 });
 
 Route::get('/test-logging', function () {
-    Log::info('This is a test log message for Graylog.');
-    return 'Log message sent!';
+    Log::info('MONS');
+    return 'Sent!';
 });
 
 // require __DIR__.'/auth.php';

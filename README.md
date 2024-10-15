@@ -6,6 +6,10 @@ docker-compose up -d --build
 
 make seed
 
+# Tests
+
+make test
+
 # Swagger
 
 http://localhost:8876/api/documentation
@@ -16,3 +20,14 @@ http://localhost:8876/admin
 
 Login: admin@admin.com
 Pass: admin
+
+# Graylog
+
+Login: admin
+Pass: admin
+
+System > Inputs > Select Input ---> GELF UDP > Launch new input
+
+## Test GrayLog
+
+http://localhost:8876/test-logging
