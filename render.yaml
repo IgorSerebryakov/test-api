@@ -1,0 +1,41 @@
+services:
+  app:
+    type: web
+    env: docker
+    docker:
+      dockerfilePath: ./docker/app/Dockerfile  # Путь к Dockerfile вашего приложения
+      contextPath: ./  # Путь к вашему проекту
+    autoDeploy: true
+    envVars:
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+
+  nginx:
+    type: web
+    env: docker
+    docker:
+      dockerfilePath: ./docker/nginx/Dockerfile  # Путь к Dockerfile для Nginx, если он есть
+      contextPath: ./  # Путь к вашему проекту
+    autoDeploy: true
+
+  db:
+    type: postgres
+    plan: free
+    databaseName: ${DB_DATABASE}
+    user: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  redis:
+    type: redis
+    plan: free
+
+  scheduler:
+    type: worker
+    env: docker
+    docker:
+      dockerfilePath: ./docker/scheduler/Dockerfile  # Путь к Dockerfile для Scheduler
+      contextPath: ./  # Путь к вашему проекту
+    autoDeploy: true
+    envVars:
+      REDIS_PORT: ${REDIS_PORT}
