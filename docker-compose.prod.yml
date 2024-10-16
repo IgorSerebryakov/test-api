@@ -1,0 +1,128 @@
+services:
+    nginx:
+        image: nginx:latest
+        volumes:
+            - ./:/var/www/
+            - ./docker/nginx/conf.d/:/etc/nginx/conf.d
+        ports:
+            - "80:80"
+        depends_on:
+            - app
+            - scheduler
+        container_name: app_nginx
+        networks:
+            - base
+
+    app:
+        build:
+            args:
+                user: www
+                uid: 1000
+            context: ./
+            dockerfile: docker/app/Dockerfile
+        image: base
+        container_name: app
+        restart: unless-stopped
+        working_dir: /var/www/
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - db
+            - redis
+            - graylog
+        networks:
+            - base
+        command: ["/usr/local/bin/entrypoint.sh"]
+
+    db:
+        image: postgres:14
+        restart: always
+        volumes:
+            - db:/var/lib/postgresql/data
+        environment:
+            POSTGRES_DB: '${DB_DATABASE}'
+            POSTGRES_USER: '${DB_USERNAME}'
+            POSTGRES_PASSWORD: '${DB_PASSWORD}'
+        ports:
+            - '5433:5432'
+        container_name: db
+        networks:
+            - base
+
+    scheduler:
+        build:
+            context: .
+            dockerfile: docker/scheduler/Dockerfile
+        image: scheduler
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - app
+        container_name: scheduler
+        networks:
+            - base
+
+    redis:
+        container_name: redis
+        image: redis:alpine
+        restart: always
+        ports:
+            - '${REDIS_PORT}:6379'
+        healthcheck:
+            test: ["CMD", "redis-cli", "ping"]
+            retries: 3
+            timeout: 5s
+        volumes:
+            - redis:/data
+        networks:
+            - base
+
+    mongo:
+        image: mongo:4.2
+        container_name: graylog-mongo
+        networks:
+            - base
+
+    elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.2
+        container_name: graylog-elasticsearch
+        environment:
+            - http.host=0.0.0.0
+            - transport.host=localhost
+            - network.host=0.0.0.0
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        networks:
+            - base
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        mem_limit: 1g
+
+    graylog:
+        image: graylog/graylog:4.3
+        container_name: graylog
+        environment:
+            - GRAYLOG_HTTP_EXTERNAL_URI=http://localhost:9000/
+            - GRAYLOG_ROOT_PASSWORD_SHA2=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
+            - GRAYLOG_PASSWORD_SECRET=JfTsF84+sBeU4iZArbCP+fwdXDEcmfgLv7trRSIBnIA=
+        entrypoint: /usr/bin/tini -- wait-for-it elasticsearch:9200 -- /docker-entrypoint.sh
+        depends_on:
+            - mongo
+            - elasticsearch
+        networks:
+            - base
+        ports:
+            - "9000:9000"
+            - "12201:12201/udp"
+            - "1514:1514"
+
+networks:
+    base:
+        driver: bridge
+
+volumes:
+    db:
+        driver: local
+    redis:
+        driver: local
