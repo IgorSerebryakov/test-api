@@ -2,6 +2,7 @@ FROM php:8.2-fpm
 
 RUN apt-get update && apt-get install -y \
     libpq-dev \
+    libpng-dev \
     libzip-dev
 
 RUN docker-php-ext-install pdo_pgsql bcmath gd zip pcntl
