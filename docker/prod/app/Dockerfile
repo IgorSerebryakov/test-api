@@ -21,7 +21,7 @@ COPY ./docker/app/php.ini /usr/local/etc/php/conf.d/php.ini
 
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+RUN composer install
 
 RUN php artisan config:cache
 RUN php artisan route:cache
