@@ -77,46 +77,6 @@ services:
         networks:
             - base
 
-    mongo:
-        image: mongo:4.2
-        container_name: graylog-mongo
-        networks:
-            - base
-
-    elasticsearch:
-        image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.2
-        container_name: graylog-elasticsearch
-        environment:
-            - http.host=0.0.0.0
-            - transport.host=localhost
-            - network.host=0.0.0.0
-            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-        networks:
-            - base
-        ulimits:
-            memlock:
-                soft: -1
-                hard: -1
-        mem_limit: 1g
-
-    graylog:
-        image: graylog/graylog:4.3
-        container_name: graylog
-        environment:
-            - GRAYLOG_HTTP_EXTERNAL_URI=http://localhost:9000/
-            - GRAYLOG_ROOT_PASSWORD_SHA2=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
-            - GRAYLOG_PASSWORD_SECRET=JfTsF84+sBeU4iZArbCP+fwdXDEcmfgLv7trRSIBnIA=
-        entrypoint: /usr/bin/tini -- wait-for-it elasticsearch:9200 -- /docker-entrypoint.sh
-        depends_on:
-            - mongo
-            - elasticsearch
-        networks:
-            - base
-        ports:
-            - "9000:9000"
-            - "12201:12201/udp"
-            - "1514:1514"
-
 networks:
     base:
         driver: bridge
